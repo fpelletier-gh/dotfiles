@@ -1,0 +1,16 @@
+.netrwhist
+npm-debug.log
+
+plug.vim.old
+
+config/nvim/spell
+config/nvim/shada
+config/nvim/plugged
+config/nvim/autoload/plug.vim
+tmux.symlink/plugins/
+tmux.symlink/resurrect/
+vim/vim.symlink/spell/
+vim/vim.symlink/plugged/
+Session.vim
+
+Brewfile.lock.json
