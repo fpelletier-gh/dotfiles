@@ -5,6 +5,10 @@
 call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
 
+    " set a map leader for more key combos
+    let mapleader = ' '
+    let maplocalleader = ' '
+
 " General {{{
     " Abbreviations
     abbr funciton function
@@ -93,6 +97,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     " toggle invisible characters
     set list
+    " set list lcs=tab:\|\ 
     set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
     set showbreak=↪
 
@@ -168,10 +173,6 @@ call plug#begin('~/.config/nvim/plugged')
 " }}}
 
 " General Mappings {{{
-    " set a map leader for more key combos
-    let mapleader = ' '
-    let maplocalleader = ' '
-
     " remap esc
     inoremap jk <esc>
 
@@ -192,19 +193,47 @@ call plug#begin('~/.config/nvim/plugged')
     " qq to record, Q to replay
     nnoremap Q @q
 
+    " Make s surround objects and S surround line
+    nmap s ysiw
+    nmap S yss
+
     " Open new line below and above current line
     nnoremap <leader>o o<esc>
     nnoremap <leader>O O<esc>    
 
+    " Replace visual selection
+    vnoremap <leader>p "_dP
+
     " Session saving
     Plug 'tpope/vim-obsession'
-    nnoremap <leader>B :Obsession<cr>
+    nnoremap <leader>bs :Obsession<cr>
 
     " Highlight yank
     if exists('##TextYankPost')
       Plug 'machakann/vim-highlightedyank'
       let g:highlightedyank_highlight_duration = 100
     endif
+
+    Plug 'junegunn/vim-slash'
+    if has('timers')
+        noremap <expr> <plug>(slash-after) slash#blink(2, 50)
+    endif
+
+    Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+      let g:undotree_WindowLayout = 2
+      nnoremap U :UndotreeToggle<CR>
+
+    " Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers
+    Plug 'junegunn/vim-peekaboo'
+
+    " Ctag sidebar
+    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+      let g:tagbar_sort = 0
+    nmap <leader>T :TagbarToggle<CR>
+
+    Plug 'Yggdroot/indentLine'
+
+    nmap <leader>I :IndentLinesToggle<cr>
 
     " Nvim terminal
     nnoremap <silent> <Leader>t :$tabnew<CR>
@@ -238,17 +267,21 @@ call plug#begin('~/.config/nvim/plugged')
     nnoremap <silent> <C-j> :move+<cr>
     nnoremap <silent> <C-h> <<
     nnoremap <silent> <C-l> >>
-
-    " set paste toggle
-    " set pastetoggle=<leader>v
+    xnoremap <silent> <C-k> :move-2<cr>gv
+    xnoremap <silent> <C-j> :move'>+<cr>gv
+    xnoremap <silent> <C-h> <gv
+    xnoremap <silent> <C-l> >gv
+    xnoremap < <gv
+    xnoremap > >gv
 
     " edit ~/.config/nvim/init.vim
     map <leader>ev :e! ~/.config/nvim/init.vim<cr>
+    
     " edit gitconfig
     " map <leader>eg :e! ~/.gitconfig<cr>
 
     " clear highlighted search
-    "noremap <space> :set hlsearch! hlsearch?<cr>
+    noremap <leader>/ :set hlsearch! hlsearch?<cr>
 
     " activate spell-checking alternatives
     nmap ;s :set invspell spelllang=en<cr>
@@ -260,16 +293,13 @@ call plug#begin('~/.config/nvim/plugged')
     "nmap <leader><space> :%s/\s\+$<cr>
     "nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
 
-    " inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
-    " inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
-    
     " Movement in insert mode
     inoremap <C-h> <C-o>h
     inoremap <C-l> <C-o>a
     inoremap <C-j> <C-o>j
     inoremap <C-k> <C-o>k
 
-    nmap <leader>l :set list!<cr>
+    " nmap <leader>l :set list!<cr>
 
     " keep visual selection when indenting/outdenting
     vmap < <gv
@@ -281,16 +311,15 @@ call plug#begin('~/.config/nvim/plugged')
     " enable . command in visual mode
     vnoremap . :normal .<cr>
 
-    " map <silent> <M-h> <Plug>WinMoveLeft
-    " map <silent> <M-j> <Plug>WinMoveDown
-    " map <silent> <M-k> <Plug>WinMoveUp
-    " map <silent> <M-l> <Plug>WinMoveRight
-
-    
     nnoremap <M-h> <C-w>h
     nnoremap <M-j> <C-w>j
     nnoremap <M-k> <C-w>k
     nnoremap <M-l> <C-w>l
+
+    xnoremap <silent> <M-h> <esc><C-w>h
+    xnoremap <silent> <M-j> <esc><C-w>j
+    xnoremap <silent> <M-k> <esc><C-w>k
+    xnoremap <silent> <M-l> <esc><C-w>l
 
     Plug 'christoomey/vim-tmux-navigator'
         let g:tmux_navigator_no_mappings = 1
@@ -324,9 +353,29 @@ call plug#begin('~/.config/nvim/plugged')
     " toggle cursor line
     nnoremap <leader>i :set cursorline!<cr>
 
+    " Quickfix
+    nnoremap ]q :cnext<cr>zz
+    nnoremap [q :cprev<cr>zz
+    nnoremap ]Q :clast<cr>zz
+    nnoremap [Q :cfirst<cr>zz
+    nnoremap ]l :lnext<cr>zz
+    nnoremap [l :lprev<cr>zz
+    nnoremap ]L :llast<cr>zz
+    nnoremap [L :lfirst<cr>zz
+
+    " <leader>b | buf-search
+    nnoremap <leader>b :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
+
+    " <Leader>c Close quickfix/location window
+    nnoremap <leader>c :cclose<bar>lclose<cr>
+
+    " <Leader>C Open quickfix/location window
+    nnoremap <leader>C :copen<cr>
+    nnoremap <leader>l :lopen<cr>
+
     " scroll the viewport faster
-    nnoremap <C-e> 3<C-e>
-    nnoremap <C-y> 3<C-y>
+    nnoremap <C-e> 5<C-e>
+    nnoremap <C-y> 5<C-y>
 
     " moving up and down work as you would expect
     nnoremap <silent> j gj
@@ -362,15 +411,28 @@ call plug#begin('~/.config/nvim/plugged')
     nnoremap <Leader>4 4gt
     nnoremap <Leader>5 5gt
 
-    " Interesting word mappings
-    " nmap <leader>0 <Plug>ClearInterestingWord
-    " nmap <leader>1 <Plug>HiInterestingWord1
-    " nmap <leader>2 <Plug>HiInterestingWord2
-    " nmap <leader>3 <Plug>HiInterestingWord3
-    " nmap <leader>4 <Plug>HiInterestingWord4
-    " nmap <leader>5 <Plug>HiInterestingWord5
-    " nmap <leader>6 <Plug>HiInterestingWord6
 " }}}
+
+    " Todo grep
+    function! s:todo() abort
+      let entries = []
+      for cmd in ['git grep -niI -e TODO -e FIXME -e XXX 2> /dev/null',
+                \ 'grep -rniI -e TODO -e FIXME -e XXX * 2> /dev/null']
+        let lines = split(system(cmd), '\n')
+        if v:shell_error != 0 | continue | endif
+        for line in lines
+          let [fname, lno, text] = matchlist(line, '^\([^:]*\):\([^:]*\):\(.*\)')[1:3]
+          call add(entries, { 'filename': fname, 'lnum': lno, 'text': text })
+        endfor
+        break
+      endfor
+
+      if !empty(entries)
+        call setqflist(entries)
+        copen
+      endif
+    endfunction
+    command! Todo call s:todo()
 
 " AutoGroups {{{
     " file type specific settings
@@ -420,9 +482,6 @@ call plug#begin('~/.config/nvim/plugged')
     " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
     Plug 'AndrewRadev/splitjoin.vim'
 
-    " add end, endif, etc. automatically
-    " Plug 'tpope/vim-endwise'
-
     " detect indent style (tabs vs. spaces)
     Plug 'tpope/vim-sleuth'
 
@@ -462,7 +521,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Close buffers but keep splits
     Plug 'moll/vim-bbye'
-    nmap <leader>b :Bdelete<cr>
+    nmap <leader>bd :Bdelete<cr>
 
     " Writing in vim {{{{
         Plug 'junegunn/goyo.vim'
@@ -523,57 +582,116 @@ call plug#begin('~/.config/nvim/plugged')
     \ }
 " }}}
 
-" FZF {{{
-    "Plug '/usr/local/opt/fzf'
-    Plug 'junegunn/fzf', { 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-    let g:fzf_layout = { 'down': '~25%' }
+  " FZF {{{
+  " ============================================================================
+  Plug 'junegunn/fzf', { 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
 
-    if isdirectory(".git")
-        " if in a git project, use :GFiles
-        nmap <silent> <leader>T :GitFiles --cached --others --exclude-standard<cr>
-        else
-            " otherwise, use :FZF
-            nmap <silent> <leader>T :FZF<cr>
-        endif
+  if has('nvim') || has('gui_running')
+    let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  endif
 
-        nmap <silent> <leader>s :GFiles?<cr>
 
-        nmap <silent> <leader>; :Buffers<cr>
-        nmap <silent> <leader><space> :FZF<cr>
-        nmap <leader><tab> <plug>(fzf-maps-n)
-        xmap <leader><tab> <plug>(fzf-maps-x)
-        omap <leader><tab> <plug>(fzf-maps-o)
+  " All files
+  command! -nargs=? -complete=dir AF
+    \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+    \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+    \ })))
 
-        " Insert mode completion
-        imap <c-x><c-k> <plug>(fzf-complete-word)
-        imap <c-x><c-f> <plug>(fzf-complete-path)
-        imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-        imap <c-x><c-l> <plug>(fzf-complete-line)
+  let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
 
-        nnoremap <silent> <Leader>C :call fzf#run({
-        \   'source':
-        \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
-        \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-        \   'sink':    'colo',
-        \   'options': '+m',
-        \   'left':    30
-        \ })<CR>
+  " Terminal buffer options for fzf
+  autocmd! FileType fzf
+  autocmd  FileType fzf set noshowmode noruler nonu
 
-        command! FZFMru call fzf#run({
-        \  'source':  v:oldfiles,
-        \  'sink':    'e',
-        \  'options': '-m -x +s',
-        \  'down':    '40%'})
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
-        command! -bang -nargs=* Find call fzf#vim#grep(
-            \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
-            \ <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
-        command! -bang -nargs=? -complete=dir Files
-            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
-        command! -bang -nargs=? -complete=dir GitFiles
-            \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
-    " }}}
+  command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+  nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+  nnoremap <silent> <Leader>; :Buffers<CR>
+  nnoremap <silent> <Leader>L :Lines<CR>
+  command! -bang -nargs=* Ag
+    \ call fzf#vim#ag(<q-args>,
+    \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+    \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \                 <bang>0)
+  nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+  nnoremap <silent> <Leader>AG :Ag <C-R><C-A><CR>
+  xnoremap <silent> <Leader>ag y:Ag <C-R>"<CR>
+  nnoremap <silent> <Leader>` :Marks<CR>
+  nnoremap <silent> <Leader>r :Rg<CR>
+
+  inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
+  imap <c-x><c-k> <plug>(fzf-complete-word)
+  imap <c-x><c-f> <plug>(fzf-complete-path)
+  inoremap <expr> <c-x><c-d> fzf#vim#complete#path('blsd')
+  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+  imap <c-x><c-l> <plug>(fzf-complete-line)
+
+  function! s:plug_help_sink(line)
+    let dir = g:plugs[a:line].dir
+    for pat in ['doc/*.txt', 'README.md']
+      let match = get(split(globpath(dir, pat), "\n"), 0, '')
+      if len(match)
+        execute 'tabedit' match
+        return
+      endif
+    endfor
+    tabnew
+    execute 'Explore' dir
+  endfunction
+
+  command! PlugHelp call fzf#run(fzf#wrap({
+    \ 'source': sort(keys(g:plugs)),
+    \ 'sink':   function('s:plug_help_sink')}))
+
+  function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    if a:fullscreen
+      let options = fzf#vim#with_preview(options)
+    endif
+    call fzf#vim#grep(initial_command, 1, options, a:fullscreen)
+  endfunction
+
+  command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+  function! s:list_buffers()
+    redir => list
+    silent ls
+    redir END
+    return split(list, "\n")
+  endfunction
+
+  function! s:delete_buffers(lines)
+    execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+  endfunction
+
+  command! BD call fzf#run(fzf#wrap({
+    \ 'source': s:list_buffers(),
+    \ 'sink*': { lines -> s:delete_buffers(lines) },
+    \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+  \ }))
+
+  nnoremap <leader>db :BD<cr>
+
 
     " vim-fugitive {{{
         Plug 'tpope/vim-fugitive'
@@ -584,13 +702,6 @@ call plug#begin('~/.config/nvim/plugged')
 
         Plug 'tpope/vim-rhubarb' " hub extension for fugitive
         Plug 'sodapopcan/vim-twiggy'
-    " }}}
-
-    " UltiSnips {{{
-        " Plug 'SirVer/ultisnips' " Snippets plugin
-        " let g:UltiSnipsExpandTrigger="<C-l>"
-        " let g:UltiSnipsJumpForwardTrigger="<C-j>"
-        " let g:UltiSnipsJumpBackwardTrigger="<C-k>"
     " }}}
 
     " coc {{{
@@ -607,6 +718,7 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-sh',
         \ 'coc-vimlsp',
         \ 'coc-emmet',
+        \ 'coc-snippets',
         \ 'coc-prettier',
         \ 'coc-explorer'
         \ ]
@@ -676,8 +788,11 @@ call plug#begin('~/.config/nvim/plugged')
             imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
         endif
 
+        " For enhanced <CR> experience with coc-pairs checkout :h coc#on_enter()
         inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+        let g:coc_snippet_next = '<tab>'
     " }}}
 " }}}
 
