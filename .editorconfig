@@ -2,16 +2,12 @@ root = true
 
 [*]
 indent_style = space
-indent_size = 4
-
-[{*.rb,Rakefile}]
-indent_style = space
 indent_size = 2
 
-[*.vim]
-indent_style = space
-indent_size = 4
-
-[*.snippets]
+[Makefile]
 indent_style = tab
-indent_size = 4
+charset = utf-8
+
+[*.{sh,snippets}]
+indent_style = tab
+charset = utf-8

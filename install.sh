@@ -45,6 +45,11 @@ if [ "$(uname)" == "Darwin" ]; then
     fi
 
     source install/osx.sh
+elif [ "$(uname)" == "Linux" ]; then
+    echo -e "\\n\\nRunning on Linux"
+
+    # install apt dependencies from Makefile
+    make linux
 fi
 
 echo "creating vim directories"

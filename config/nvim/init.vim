@@ -43,7 +43,7 @@ call plug#begin('~/.config/nvim/plugged')
     " Searching
     set ignorecase " case insensitive searching
     set smartcase " case-sensitive if expresson contains a capital letter
-    set hlsearch " highlight search results
+    set nohlsearch " highlight search results
     set incsearch " set incremental search, like modern browsers
     set nolazyredraw " don't redraw while executing macros
 
@@ -96,8 +96,7 @@ call plug#begin('~/.config/nvim/plugged')
     set foldlevel=1
 
     " toggle invisible characters
-    set list
-    " set list lcs=tab:\|\ 
+    set list lcs=tab:\|\ 
     set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
     set showbreak=↪
 
@@ -284,7 +283,7 @@ call plug#begin('~/.config/nvim/plugged')
     noremap <leader>/ :set hlsearch! hlsearch?<cr>
 
     " activate spell-checking alternatives
-    nmap ;s :set invspell spelllang=en<cr>
+    " nmap ;s :set invspell spelllang=en<cr>
 
     " markdown to html
     nmap <leader>md :%!markdown --html4tags <cr>
@@ -330,7 +329,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     nmap <leader>z <Plug>Zoom
 
-    map <leader>wc :wincmd q<cr>
+    " map <leader>wc :wincmd q<cr>
 
     " move line mappings
     " ∆ is <A-j> on macOS
@@ -521,7 +520,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Close buffers but keep splits
     Plug 'moll/vim-bbye'
-    nmap <leader>bd :Bdelete<cr>
+    nmap <leader>db :Bdelete<cr>
 
     " Writing in vim {{{{
         Plug 'junegunn/goyo.vim'
@@ -540,7 +539,7 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
         let g:WebDevIconsOS = 'Darwin'
         let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-        let g:DevIconsEnableFoldersOpenClose = 1
+        " let g:DevIconsEnableFoldersOpenClose = 1
         let g:DevIconsEnableFolderExtensionPatternMatching = 1
         let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
         let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
@@ -690,7 +689,7 @@ call plug#begin('~/.config/nvim/plugged')
     \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
   \ }))
 
-  nnoremap <leader>db :BD<cr>
+  nnoremap <leader>dB :BD<cr>
 
 
     " vim-fugitive {{{
@@ -703,6 +702,9 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'tpope/vim-rhubarb' " hub extension for fugitive
         Plug 'sodapopcan/vim-twiggy'
     " }}}
+    "
+
+        Plug 'honza/vim-snippets'
 
     " coc {{{
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -724,6 +726,8 @@ call plug#begin('~/.config/nvim/plugged')
         \ ]
 
         autocmd CursorHold * silent call CocActionAsync('highlight')
+
+        nmap <leader>sn :CocList snippets<cr>
 
         " coc-prettier
         command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -822,11 +826,11 @@ call plug#begin('~/.config/nvim/plugged')
 
     " JavaScript {{{
         Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
-        " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
+        Plug 'pangloss/vim-javascript'
         Plug 'moll/vim-node', { 'for': 'javascript' }
-		Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-		Plug 'MaxMEllon/vim-jsx-pretty'
-		let g:vim_jsx_pretty_highlight_close_tag = 1
+        Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+        Plug 'MaxMEllon/vim-jsx-pretty'
+        let g:vim_jsx_pretty_highlight_close_tag = 1
     " }}}
 
     " TypeScript {{{
@@ -857,6 +861,12 @@ call plug#begin('~/.config/nvim/plugged')
     " JSON {{{
         Plug 'elzr/vim-json', { 'for': 'json' }
         let g:vim_json_syntax_conceal = 0
+    " }}}
+
+    " JSON {{{
+        Plug 'AndrewRadev/tagalong.vim'
+        let g:tagalong_additional_filetypes = ['javascript', 'typescript']
+        let g:tagalong_verbose = 1
     " }}}
 
     Plug 'ekalinin/Dockerfile.vim'
