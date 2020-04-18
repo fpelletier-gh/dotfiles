@@ -47,9 +47,22 @@ if [ "$(uname)" == "Darwin" ]; then
     source install/osx.sh
 elif [ "$(uname)" == "Linux" ]; then
     echo -e "\\n\\nRunning on Linux"
+		
+		if test "$( command -v apt )"; then
+				echo -e "\\n\\nInstalling on Debian"
+				make debian
+		elif test "$( command -v pacman )"; then
+				echo -e "\\n\\nInstalling on Arch"
+				make arch
+		else
+				echo "Not a Debian or Arch based linux distribution"
+				exit 1
+		fi
 
-    # install apt dependencies from Makefile
-    make linux
+		if test ! "$( command -v fzf )"; then
+				echo -e "\\n\\nInstalling fzf"
+				make fzf
+		fi
 fi
 
 echo "creating vim directories"

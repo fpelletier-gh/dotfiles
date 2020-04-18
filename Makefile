@@ -1,11 +1,13 @@
 DOTFILES=${HOME}/.dotfiles
 
 # Arguments to pass to make
-linux: linuxrepo debian neovim tmuxTmp googleChrome
+debian: linuxrepo debian neovim tmuxTmp nvm googleChrome
+arch: arch neovim tmuxTmp nvm
+fzf: linuxfzf
 
 googleChrome:
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    sudo dpkg -i google-chrome-stable_current_amd64.deb
+	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 linuxfzf:
 	sudo mkdir -p /usr/local/opt
@@ -18,10 +20,10 @@ neovim:
 	python3 -m pip install --upgrade pynvim
 
 tmuxTpm:
-    git clone https://github.com/tmux-plugins/tpm ~/.dotfiles/.tmux.symlink/plugins/tpm
+	git clone https://github.com/tmux-plugins/tpm ~/.dotfiles/tmux.symlink/plugins/tpm
 
 linuxrepo:
-    sudo add-apt-repository ppa:neovim-ppa/unstable
+	sudo add-apt-repository ppa:neovim-ppa/unstable
 	sudo add-apt-repository ppa:lazygit-team/release
 	sudo apt-get update
 
@@ -32,7 +34,6 @@ debian:
 		cabextract \
 		cmake \
 		exuberant-ctags \
-        fzf \
 		gcc \
 		gnupg \
 		grep \
@@ -57,7 +58,42 @@ debian:
 		tmux \
 		vim \
 		xclip \
-		zsh
+		zsh \
+		fzf 
+
+arch:
+	sudo pacman -Syu \
+		ack \
+		bat \
+		cabextract \
+		cmake \
+		exuberant-ctags \
+		gcc \
+		gnupg \
+		grep \
+		highlight \
+		htop \
+		hub \
+		kitty \
+		lazygit \
+		mono-devel \
+		neofetch \
+		neovim \
+		ngrep \
+		python-dev \
+		python-pip \
+		python3-dev \
+		python3-pip \
+		ripgrep \
+		ruby2.5 \
+		ruby2.5-dev \
+		silversearcher-ag \
+		calibre \
+		tmux \
+		vim \
+		xclip \
+		zsh \
+		fzf 
 
 nvm:
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | sh

@@ -694,7 +694,8 @@ call plug#begin('~/.config/nvim/plugged')
 
     " vim-fugitive {{{
         Plug 'tpope/vim-fugitive'
-        nmap <silent> <leader>gs :Gstatus<cr>
+        nmap <silent> <leader>gs :Gstatus<CR>gg<c-n>
+        nmap <silent> <leader>gd :Gdiff<CR>
         nmap <leader>ge :Gedit<cr>
         nmap <silent><leader>gr :Gread<cr>
         nmap <silent><leader>gb :Gblame<cr>
