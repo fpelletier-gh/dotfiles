@@ -294,7 +294,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Movement in insert mode
     inoremap <C-h> <C-o>h
-    inoremap <C-l> <C-o>a
+    inoremap <C-l> <C-o>l
     inoremap <C-j> <C-o>j
     inoremap <C-k> <C-o>k
 
@@ -315,10 +315,15 @@ call plug#begin('~/.config/nvim/plugged')
     nnoremap <M-k> <C-w>k
     nnoremap <M-l> <C-w>l
 
-    xnoremap <silent> <M-h> <esc><C-w>h
-    xnoremap <silent> <M-j> <esc><C-w>j
-    xnoremap <silent> <M-k> <esc><C-w>k
-    xnoremap <silent> <M-l> <esc><C-w>l
+    inoremap <M-h> <C-o><C-w>h<esc>
+    inoremap <M-j> <C-o><C-w>j<esc>
+    inoremap <M-k> <C-o><C-w>k<esc>
+    inoremap <M-l> <C-o><C-w>l<esc>
+
+    xnoremap <silent> <M-h> <C-c><C-w>h
+    xnoremap <silent> <M-j> <C-c><C-w>j
+    xnoremap <silent> <M-k> <C-c><C-w>k
+    xnoremap <silent> <M-l> <C-c><C-w>l
 
     Plug 'christoomey/vim-tmux-navigator'
         let g:tmux_navigator_no_mappings = 1
