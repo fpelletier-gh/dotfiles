@@ -228,7 +228,36 @@ call plug#begin('~/.config/nvim/plugged')
     " Ctag sidebar
     Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
       let g:tagbar_sort = 0
-    nmap <leader>T :TagbarToggle<CR>
+      let g:tagbar_type_typescript = {
+        \ 'ctagstype': 'typescript',
+        \ 'kinds': [
+          \ 'c:classes',
+          \ 'n:modules',
+          \ 'f:functions',
+          \ 'v:variables',
+          \ 'v:varlambdas',
+          \ 'm:members',
+          \ 'i:interfaces',
+          \ 'e:enums',
+        \ ]
+      \ }
+      let g:tagbar_type_javascript = {
+            \ 'ctagstype': 'javascript',
+            \ 'kinds': [
+            \ 'A:arrays',
+            \ 'P:properties',
+            \ 'T:tags',
+            \ 'O:objects',
+            \ 'G:generator functions',
+            \ 'F:functions',
+            \ 'C:constructors/classes',
+            \ 'M:methods',
+            \ 'V:variables',
+            \ 'I:imports',
+            \ 'E:exports',
+            \ 'S:styled components'
+            \ ]}
+      nmap <leader>T :TagbarToggle<CR>
 
     Plug 'Yggdroot/indentLine'
 
@@ -699,12 +728,15 @@ call plug#begin('~/.config/nvim/plugged')
 
     " vim-fugitive {{{
         Plug 'tpope/vim-fugitive'
-        nmap <silent> <leader>gs :Gstatus<CR>gg<c-n>
+        nmap <silent> <leader>G :Gstatus<CR>gg<c-n>
         nmap <silent> <leader>gd :Gdiff<CR>
+        nmap <silent> <leader>gv :GV<CR>
         nmap <leader>ge :Gedit<cr>
         nmap <silent><leader>gr :Gread<cr>
         nmap <silent><leader>gb :Gblame<cr>
+        nmap <silent><leader>gt :Twiggy<cr>
 
+        Plug 'junegunn/gv.vim'
         Plug 'tpope/vim-rhubarb' " hub extension for fugitive
         Plug 'sodapopcan/vim-twiggy'
     " }}}
@@ -728,7 +760,8 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-emmet',
         \ 'coc-snippets',
         \ 'coc-prettier',
-        \ 'coc-explorer'
+        \ 'coc-explorer',
+        \ 'coc-highlight'
         \ ]
 
         autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -768,6 +801,40 @@ call plug#begin('~/.config/nvim/plugged')
         " organize imports
         command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
+        inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+            " \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+            " \ <SID>check_back_space() ? "\<TAB>" :
+
+        " function! s:check_back_space() abort
+        " let col = col('.') - 1
+        " return !col || getline('.')[col - 1]  =~# '\s'
+        " endfunction
+
+        " inoremap <silent><expr> <TAB>
+        "       \ pumvisible() ? coc#_select_confirm() :
+        "       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+        "       \ <SID>check_back_space() ? "\<TAB>" :
+        "       \ coc#refresh()
+
+        function! s:check_back_space() abort
+          let col = col('.') - 1
+          return !col || getline('.')[col - 1]  =~# '\s'
+        endfunction
+
+        let g:coc_snippet_next = '<C-space>'
+
+        " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+        " position. Coc only does snippet and additional edit on confirm.
+        if exists('*complete_info')
+            inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+        else
+            imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+        endif
+
         " Use K to show documentation in preview window
         nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -779,30 +846,9 @@ call plug#begin('~/.config/nvim/plugged')
             endif
         endfunction
 
-        inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-        function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
-        endfunction
-
-        " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-        " position. Coc only does snippet and additional edit on confirm.
-        if exists('*complete_info')
-            inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-        else
-            imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-        endif
-
         " For enhanced <CR> experience with coc-pairs checkout :h coc#on_enter()
         inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-        let g:coc_snippet_next = '<tab>'
     " }}}
 " }}}
 
@@ -831,10 +877,13 @@ call plug#begin('~/.config/nvim/plugged')
     " }}}
 
     " JavaScript {{{
-        Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
-        Plug 'pangloss/vim-javascript'
-        Plug 'moll/vim-node', { 'for': 'javascript' }
-        Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+        " Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
+        " Plug 'pangloss/vim-javascript'
+        " Plug 'othree/javascript-libraries-syntax.vim'
+        " let g:used_javascript_libs = 'underscore,requirejs,chai,jquery,express'
+
+        " Plug 'moll/vim-node', { 'for': 'javascript' }
+        " Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
         Plug 'MaxMEllon/vim-jsx-pretty'
         let g:vim_jsx_pretty_highlight_close_tag = 1
     " }}}

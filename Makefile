@@ -24,7 +24,6 @@ tmuxTpm:
 
 linuxrepo:
 	sudo add-apt-repository ppa:neovim-ppa/unstable
-	sudo add-apt-repository ppa:lazygit-team/release
 	sudo apt-get update
 
 debian:
@@ -41,7 +40,6 @@ debian:
 		htop \
 		hub \
 		kitty \
-		lazygit \
 		mono-devel \
 		neofetch \
 		neovim \
@@ -67,7 +65,7 @@ arch:
 		bat \
 		cabextract \
 		cmake \
-		exuberant-ctags \
+		ctags \
 		gcc \
 		gnupg \
 		grep \
@@ -75,8 +73,6 @@ arch:
 		htop \
 		hub \
 		kitty \
-		lazygit \
-		mono-devel \
 		neofetch \
 		neovim \
 		ngrep \

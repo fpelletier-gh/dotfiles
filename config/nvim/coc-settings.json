@@ -1,4 +1,7 @@
 {
+    "coc.preferences.colorSupport": true,
+    "highlight.document.enable": true,
+    "highlight.color.enable": true,
     "suggest.enablePreview": true,
     "codeLens.enable": true,
     "git.addedSign.text": "┃",
@@ -41,7 +44,8 @@
     "eslint.enable": false,
     "emmet.includeLanguages": {
         "typescript": "javascriptreact",
-        "javascript": "javascriptreact"
+        "javascript": "javascriptreact",
+        "pug": "jade"
     },
     "emmet.showAbbreviationSuggestions": true
 }
