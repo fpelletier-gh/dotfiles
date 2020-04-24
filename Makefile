@@ -1,13 +1,9 @@
 DOTFILES=${HOME}/.dotfiles
 
 # Arguments to pass to make
-debian: linuxrepo debian neovim tmuxTmp nvm googleChrome
-arch: arch neovim tmuxTmp nvm
+debian: linuxrepo debian neovim nvm
+arch: arch neovim nvm
 fzf: linuxfzf
-
-googleChrome:
-	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-	sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 linuxfzf:
 	sudo mkdir -p /usr/local/opt
@@ -18,9 +14,6 @@ linuxfzf:
 
 neovim:
 	python3 -m pip install --upgrade pynvim
-
-tmuxTpm:
-	git clone https://github.com/tmux-plugins/tpm ~/.dotfiles/tmux.symlink/plugins/tpm
 
 linuxrepo:
 	sudo add-apt-repository ppa:neovim-ppa/unstable
@@ -64,6 +57,7 @@ arch:
 		ack \
 		bat \
 		cabextract \
+		chromium \
 		cmake \
 		ctags \
 		gcc \

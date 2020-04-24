@@ -123,6 +123,10 @@ call plug#begin('~/.config/nvim/plugged')
     " highlight conflicts
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
+    " Set handlebars files to be treated as html
+    au BufNewFile,BufRead *.handlebars set filetype=html
+    au BufNewFile,BufRead *.hbs set filetype=html
+
     " Load colorschemes
     Plug 'chriskempson/base16-vim'
     Plug 'joshdick/onedark.vim'
@@ -594,7 +598,7 @@ call plug#begin('~/.config/nvim/plugged')
             endif
         endfunction
         " toggle nerd tree
-        nmap <silent> <leader>n :call ToggleNerdTree()<cr>
+        nmap <silent> <leader>N :call ToggleNerdTree()<cr>
         " find the current file in nerdtree without needing to reload the drawer
         nmap <silent> <leader>y :NERDTreeFind<cr>
 
@@ -749,6 +753,7 @@ call plug#begin('~/.config/nvim/plugged')
 
         let g:coc_global_extensions = [
         \ 'coc-css',
+        \ 'coc-html',
         \ 'coc-json',
         \ 'coc-tsserver',
         \ 'coc-git',
@@ -778,7 +783,7 @@ call plug#begin('~/.config/nvim/plugged')
         nmap gs <Plug>(coc-git-chunkinfo)
         nmap gu :CocCommand git.chunkUndo<cr>
 
-        nmap <silent> <leader>k :CocCommand explorer<cr>
+        nmap <silent> <leader>n :CocCommand explorer<cr>
 
         "remap keys for gotos
         nmap <silent> gd <Plug>(coc-definition)
@@ -855,25 +860,25 @@ call plug#begin('~/.config/nvim/plugged')
 " Language-Specific Configuration {{{
     " html / templates {{{
         " emmet support for vim - easily create markdup wth CSS-like syntax
-        Plug 'mattn/emmet-vim'
+        " Plug 'mattn/emmet-vim'
 
         " match tags in html, similar to paren support
         Plug 'gregsexton/MatchTag', { 'for': 'html' }
 
         " html5 support
-        Plug 'othree/html5.vim', { 'for': 'html' }
+        " Plug 'othree/html5.vim', { 'for': 'html' }
 
         " mustache support
-        Plug 'mustache/vim-mustache-handlebars'
+        " Plug 'mustache/vim-mustache-handlebars'
 
         " pug / jade support
-        Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
+        " Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
 
 		" nunjucks support
-        Plug 'Glench/Vim-Jinja2-Syntax', { 'for': 'njk' }
+        " Plug 'Glench/Vim-Jinja2-Syntax', { 'for': 'njk' }
 
         " liquid support
-        Plug 'tpope/vim-liquid'
+        " Plug 'tpope/vim-liquid'
     " }}}
 
     " JavaScript {{{
@@ -889,17 +894,17 @@ call plug#begin('~/.config/nvim/plugged')
     " }}}
 
     " TypeScript {{{
-        Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
+        " Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
         " Plug 'Shougo/vimproc.vim', { 'do': 'make' } TODO what still needs this?
     " }}}
 
 
     " Styles {{{
-        Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
-        Plug 'groenewege/vim-less', { 'for': 'less' }
-        Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-        Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-        Plug 'stephenway/postcss.vim', { 'for': 'css' }
+        " Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
+        " Plug 'groenewege/vim-less', { 'for': 'less' }
+        " Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+        " Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+        " Plug 'stephenway/postcss.vim', { 'for': 'css' }
     " }}}
 
     " markdown {{{
@@ -914,11 +919,11 @@ call plug#begin('~/.config/nvim/plugged')
     " }}}
 
     " JSON {{{
-        Plug 'elzr/vim-json', { 'for': 'json' }
-        let g:vim_json_syntax_conceal = 0
+        " Plug 'elzr/vim-json', { 'for': 'json' }
+        " let g:vim_json_syntax_conceal = 0
     " }}}
 
-    " JSON {{{
+    " HTML {{{
         Plug 'AndrewRadev/tagalong.vim'
         let g:tagalong_additional_filetypes = ['javascript', 'typescript']
         let g:tagalong_verbose = 1

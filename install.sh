@@ -68,6 +68,15 @@ fi
 echo "creating vim directories"
 mkdir -p ~/.vim-tmp
 
+echo "Installing tmux plugins manager"
+git clone https://github.com/tmux-plugins/tpm ~/.dotfiles/tmux.symlink/plugins/tpm
+
+if test "$( command -v apt )"; then
+		echo -e "\\n\\nInstalling Google Chrome"
+		wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+		sudo dpkg -i google-chrome-stable_current_amd64.deb
+fi
+
 if ! command_exists zsh; then
     echo "zsh not found. Please install and then re-run installation scripts"
     exit 1
