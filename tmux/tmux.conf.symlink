@@ -1,7 +1,8 @@
 #set -g default-command "login-shell"
+set-option -g default-terminal "tmux-256color"
 
 # tmux display things in 256 colors
-set -g default-terminal "xterm-256color"
+# set -g default-terminal "xterm-256color"
 # set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
 
 set -g history-limit 20000
@@ -137,13 +138,13 @@ source ~/.dotfiles/tmux/base16.sh
 # Plugins config
 set -g @continuum-boot 'on'
 set -g @continuum-restore 'on'
-set -g @resurrect-strategy-nvim 'session'
 
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'junegunn/tmux-fzf-url'
 
 # Other examples:
 # set -g @plugin 'github_username/plugin_name'
