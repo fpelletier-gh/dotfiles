@@ -76,7 +76,6 @@ call plug#begin('~/.config/nvim/plugged')
     set cmdheight=1 " command bar height
     set title " set terminal title
     set showmatch " show matching braces
-    set mat=2 " how many tenths of a second to blink
     set updatetime=300
     set signcolumn=yes
     set shortmess+=c
@@ -101,10 +100,9 @@ call plug#begin('~/.config/nvim/plugged')
     set showbreak=↪
 
     set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
+
     " switch cursor to line when in insert mode, and block when not
-    set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-    \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-    \,sm:block-blinkwait175-blinkoff150-blinkon175
+    set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 
     if &term =~ '256color'
         " disable background color erase
@@ -196,7 +194,7 @@ call plug#begin('~/.config/nvim/plugged')
     " qq to record, Q to replay
     nnoremap Q @q
 
-    " Make s surround objects and S surround line
+    " Make s surround word and S surround line
     nmap s ysiw
     nmap S yss
 
@@ -232,43 +230,41 @@ call plug#begin('~/.config/nvim/plugged')
     " Ctag sidebar
     Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
       let g:tagbar_sort = 0
-      let g:tagbar_type_typescript = {
-        \ 'ctagstype': 'typescript',
-        \ 'kinds': [
-          \ 'c:classes',
-          \ 'n:modules',
-          \ 'f:functions',
-          \ 'v:variables',
-          \ 'v:varlambdas',
-          \ 'm:members',
-          \ 'i:interfaces',
-          \ 'e:enums',
-        \ ]
-      \ }
-      let g:tagbar_type_javascript = {
-            \ 'ctagstype': 'javascript',
-            \ 'kinds': [
-            \ 'A:arrays',
-            \ 'P:properties',
-            \ 'T:tags',
-            \ 'O:objects',
-            \ 'G:generator functions',
-            \ 'F:functions',
-            \ 'C:constructors/classes',
-            \ 'M:methods',
-            \ 'V:variables',
-            \ 'I:imports',
-            \ 'E:exports',
-            \ 'S:styled components'
-            \ ]}
-      nmap <leader>T :TagbarToggle<CR>
+      " let g:tagbar_type_typescript = {
+      "   \ 'ctagstype': 'typescript',
+      "   \ 'kinds': [
+      "     \ 'c:classes',
+      "     \ 'n:modules',
+      "     \ 'f:functions',
+      "     \ 'v:variables',
+      "     \ 'v:varlambdas',
+      "     \ 'm:members',
+      "     \ 'i:interfaces',
+      "     \ 'e:enums',
+      "   \ ]
+      " \ }
 
-    Plug 'Yggdroot/indentLine'
+      " let g:tagbar_type_javascript = {
+      "       \ 'ctagstype': 'javascript',
+      "       \ 'kinds': [
+      "       \ 'A:arrays',
+      "       \ 'P:properties',
+      "       \ 'T:tags',
+      "       \ 'O:objects',
+      "       \ 'G:generator functions',
+      "       \ 'F:functions',
+      "       \ 'C:constructors/classes',
+      "       \ 'M:methods',
+      "       \ 'V:variables',
+      "       \ 'I:imports',
+      "       \ 'E:exports',
+      "       \ 'S:styled components'
+      "       \ ]}
 
-    nmap <leader>I :IndentLinesToggle<cr>
+      nmap <leader>t :TagbarToggle<CR>
 
     " Nvim terminal
-    nnoremap <silent> <Leader>t :$tabnew<CR>
+    nnoremap <silent> <Leader>T :$tabnew<CR>
 
     if has('nvim')
         tnoremap <a-a> <esc>a
@@ -449,6 +445,8 @@ call plug#begin('~/.config/nvim/plugged')
     nnoremap <Leader>5 5gt
 
 " }}}
+    " Jsctags ctags for javascript
+
 
     " Todo grep
     function! s:todo() abort
@@ -510,6 +508,18 @@ call plug#begin('~/.config/nvim/plugged')
     " tmux integration for vim
     Plug 'benmills/vimux'
 
+    nmap <leader>vs :call VimuxRunCommand("npm run start")<cr>
+    nmap <leader>vt :call VimuxRunCommand("npm run test -- --watch")<cr>
+    nmap <leader>vd :call VimuxRunCommand("npm run debug")<cr>
+    nmap <leader>vl :call VimuxRunCommand("npm run lint")<cr>
+    nmap <leader>vn :call VimuxRunCommand("new-component ")<left><left>
+    " nmap <leader>vc :call VimuxSendKeys("C-c")<cr>
+    nmap <Leader>vp :VimuxPromptCommand<CR>
+    nmap <Leader>vr :VimuxRunLastCommand<CR>
+    nmap <Leader>vi :VimuxInspectRunner<CR>
+    nmap <Leader>vq :VimuxCloseRunner<CR>
+    nmap <Leader>vc :VimuxInterruptRunner<CR>
+
     " enables repeating other supported plugins with the . command
     Plug 'tpope/vim-repeat'
 
@@ -518,6 +528,9 @@ call plug#begin('~/.config/nvim/plugged')
 
     " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
     Plug 'AndrewRadev/splitjoin.vim'
+
+    Plug 'xolox/vim-misc'
+    Plug 'xolox/vim-easytags'
 
     " detect indent style (tabs vs. spaces)
     Plug 'tpope/vim-sleuth'
@@ -575,7 +588,7 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'Xuyuanp/nerdtree-git-plugin'
         Plug 'ryanoasis/vim-devicons'
         Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-        let g:WebDevIconsOS = 'Darwin'
+        let g:WebDevIconsOS = 'Linux'
         let g:WebDevIconsUnicodeDecorateFolderNodes = 1
         " let g:DevIconsEnableFoldersOpenClose = 1
         let g:DevIconsEnableFolderExtensionPatternMatching = 1
@@ -732,7 +745,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     " vim-fugitive {{{
         Plug 'tpope/vim-fugitive'
-        nmap <silent> <leader>G :Gstatus<CR>gg<c-n>
+        nmap <silent> <leader>gg :Gstatus<CR>gg<c-n>
         nmap <silent> <leader>gd :Gdiff<CR>
         nmap <silent> <leader>gv :GV<CR>
         nmap <leader>ge :Gedit<cr>
@@ -757,8 +770,12 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-json',
         \ 'coc-tsserver',
         \ 'coc-git',
-        \ 'coc-eslint',
+        \ 'coc-github',
+        \ 'coc-webpack',
         \ 'coc-tslint-plugin',
+        \ 'coc-eslint',
+        \ 'coc-actions',
+        \ 'coc-yank',
         \ 'coc-pairs',
         \ 'coc-sh',
         \ 'coc-vimlsp',
@@ -771,7 +788,11 @@ call plug#begin('~/.config/nvim/plugged')
 
         autocmd CursorHold * silent call CocActionAsync('highlight')
 
+        " coc-snippets list
         nmap <leader>sn :CocList snippets<cr>
+
+        " coc-yank
+        nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
         " coc-prettier
         command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -797,11 +818,36 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
         " rename
-        nmap <silent> <leader>rn <Plug>(coc-rename)
+        " nmap <silent> <leader>rn <Plug>(coc-rename)
 
         " Remap for format selected region
         xmap <leader>f  <Plug>(coc-format-selected)
         nmap <leader>f  <Plug>(coc-format-selected)
+
+        " Applying codeAction to the selected region.
+        " Example: `<leader>aap` for current paragraph
+        xmap <leader>a  <Plug>(coc-codeaction-selected)
+        nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+        " Remap for do codeAction of selected region
+        " function! s:cocActionsOpenFromSelected(type) abort
+        "   execute 'CocCommand actions.open ' . a:type
+        " endfunction
+        " xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+        " nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
+        " Remap keys for applying codeAction to the current line.
+        nmap <leader>am :CocCommand actions.open<cr> 
+        "
+        " Introduce function text object
+        " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+        xmap if <Plug>(coc-funcobj-i)
+        xmap af <Plug>(coc-funcobj-a)
+        omap if <Plug>(coc-funcobj-i)
+        omap af <Plug>(coc-funcobj-a)
+
+        " Show all diagnostics.
+        nnoremap <silent> <leader>ad  :<C-u>CocList diagnostics<cr>
 
         " organize imports
         command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
@@ -811,19 +857,6 @@ call plug#begin('~/.config/nvim/plugged')
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-            " \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-            " \ <SID>check_back_space() ? "\<TAB>" :
-
-        " function! s:check_back_space() abort
-        " let col = col('.') - 1
-        " return !col || getline('.')[col - 1]  =~# '\s'
-        " endfunction
-
-        " inoremap <silent><expr> <TAB>
-        "       \ pumvisible() ? coc#_select_confirm() :
-        "       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-        "       \ <SID>check_back_space() ? "\<TAB>" :
-        "       \ coc#refresh()
 
         function! s:check_back_space() abort
           let col = col('.') - 1
@@ -888,7 +921,7 @@ call plug#begin('~/.config/nvim/plugged')
         " let g:used_javascript_libs = 'underscore,requirejs,chai,jquery,express'
 
         " Plug 'moll/vim-node', { 'for': 'javascript' }
-        " Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+        Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
         Plug 'MaxMEllon/vim-jsx-pretty'
         let g:vim_jsx_pretty_highlight_close_tag = 1
     " }}}
