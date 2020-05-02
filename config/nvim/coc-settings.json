@@ -19,7 +19,8 @@
     "javascript.jsx",
     "typescript.tsx",
     "typescriptreact",
-    "javascriptreact"
+    "javascriptreact",
+    "python"
   ],
   "explorer.icon.enableNerdfont": true,
   "explorer.sources": [
@@ -46,5 +47,8 @@
     "javascript": "javascriptreact",
     "pug": "jade"
   },
-  "emmet.showAbbreviationSuggestions": true
+  "emmet.showAbbreviationSuggestions": true,
+  "python.jediEnabled": false,
+  "python.formatting.provider": "black",
+
 }

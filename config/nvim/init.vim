@@ -228,44 +228,12 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/vim-peekaboo'
 
     " Ctag sidebar
-    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-      let g:tagbar_sort = 0
-      " let g:tagbar_type_typescript = {
-      "   \ 'ctagstype': 'typescript',
-      "   \ 'kinds': [
-      "     \ 'c:classes',
-      "     \ 'n:modules',
-      "     \ 'f:functions',
-      "     \ 'v:variables',
-      "     \ 'v:varlambdas',
-      "     \ 'm:members',
-      "     \ 'i:interfaces',
-      "     \ 'e:enums',
-      "   \ ]
-      " \ }
+      Plug 'liuchengxu/vista.vim'
+      nmap <leader>t :Vista!!<CR>
+      nmap <Leader>T :Vista finder fzf:coc<CR>
 
-      " let g:tagbar_type_javascript = {
-      "       \ 'ctagstype': 'javascript',
-      "       \ 'kinds': [
-      "       \ 'A:arrays',
-      "       \ 'P:properties',
-      "       \ 'T:tags',
-      "       \ 'O:objects',
-      "       \ 'G:generator functions',
-      "       \ 'F:functions',
-      "       \ 'C:constructors/classes',
-      "       \ 'M:methods',
-      "       \ 'V:variables',
-      "       \ 'I:imports',
-      "       \ 'E:exports',
-      "       \ 'S:styled components'
-      "       \ ]}
-
-      nmap <leader>t :TagbarToggle<CR>
 
     " Nvim terminal
-    nnoremap <silent> <Leader>T :$tabnew<CR>
-
     if has('nvim')
         tnoremap <a-a> <esc>a
         tnoremap <a-b> <esc>b
@@ -511,11 +479,11 @@ call plug#begin('~/.config/nvim/plugged')
     nmap <leader>vs :call VimuxRunCommand("npm run start")<cr>
     nmap <leader>vt :call VimuxRunCommand("npm run test -- --watch")<cr>
     nmap <leader>vd :call VimuxRunCommand("npm run debug")<cr>
-    nmap <leader>vl :call VimuxRunCommand("npm run lint")<cr>
+    nmap <leader>ve :call VimuxRunCommand("npm run lint")<cr>
     nmap <leader>vn :call VimuxRunCommand("new-component ")<left><left>
     " nmap <leader>vc :call VimuxSendKeys("C-c")<cr>
     nmap <Leader>vp :VimuxPromptCommand<CR>
-    nmap <Leader>vr :VimuxRunLastCommand<CR>
+    nmap <Leader>vl :VimuxRunLastCommand<CR>
     nmap <Leader>vi :VimuxInspectRunner<CR>
     nmap <Leader>vq :VimuxCloseRunner<CR>
     nmap <Leader>vc :VimuxInterruptRunner<CR>
@@ -777,6 +745,7 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-actions',
         \ 'coc-yank',
         \ 'coc-pairs',
+        \ 'coc-python',
         \ 'coc-sh',
         \ 'coc-vimlsp',
         \ 'coc-emmet',
