@@ -412,10 +412,6 @@ call plug#begin('~/.config/nvim/plugged')
     nnoremap <Leader>4 4gt
     nnoremap <Leader>5 5gt
 
-" }}}
-    " Jsctags ctags for javascript
-
-
     " Todo grep
     function! s:todo() abort
       let entries = []
@@ -436,6 +432,8 @@ call plug#begin('~/.config/nvim/plugged')
       endif
     endfunction
     command! Todo call s:todo()
+
+" }}}
 
 " AutoGroups {{{
     " file type specific settings
@@ -481,12 +479,15 @@ call plug#begin('~/.config/nvim/plugged')
     nmap <leader>vd :call VimuxRunCommand("npm run debug")<cr>
     nmap <leader>ve :call VimuxRunCommand("npm run lint")<cr>
     nmap <leader>vn :call VimuxRunCommand("new-component ")<left><left>
-    " nmap <leader>vc :call VimuxSendKeys("C-c")<cr>
     nmap <Leader>vp :VimuxPromptCommand<CR>
     nmap <Leader>vl :VimuxRunLastCommand<CR>
     nmap <Leader>vi :VimuxInspectRunner<CR>
     nmap <Leader>vq :VimuxCloseRunner<CR>
     nmap <Leader>vc :VimuxInterruptRunner<CR>
+
+    " coc-python
+    nmap <leader>y :call VimuxRunCommand("fh")<cr><M-j>
+    nmap <leader>Y :call VimuxRunCommand("python3")<cr><M-j>
 
     " enables repeating other supported plugins with the . command
     Plug 'tpope/vim-repeat'
@@ -580,8 +581,6 @@ call plug#begin('~/.config/nvim/plugged')
         endfunction
         " toggle nerd tree
         nmap <silent> <leader>N :call ToggleNerdTree()<cr>
-        " find the current file in nerdtree without needing to reload the drawer
-        nmap <silent> <leader>y :NERDTreeFind<cr>
 
         let NERDTreeShowHidden=1
         " let NERDTreeDirArrowExpandable = '▷'
@@ -601,7 +600,7 @@ call plug#begin('~/.config/nvim/plugged')
 " }}}
 
   " FZF {{{
-  " ============================================================================
+
   Plug 'junegunn/fzf', { 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
 
@@ -743,7 +742,6 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-tslint-plugin',
         \ 'coc-eslint',
         \ 'coc-actions',
-        \ 'coc-yank',
         \ 'coc-pairs',
         \ 'coc-python',
         \ 'coc-sh',
@@ -759,9 +757,6 @@ call plug#begin('~/.config/nvim/plugged')
 
         " coc-snippets list
         nmap <leader>sn :CocList snippets<cr>
-
-        " coc-yank
-        nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
         " coc-prettier
         command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -787,7 +782,7 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
         " rename
-        " nmap <silent> <leader>rn <Plug>(coc-rename)
+        nmap <silent> <leader>rn <Plug>(coc-rename)
 
         " Remap for format selected region
         xmap <leader>f  <Plug>(coc-format-selected)
@@ -820,6 +815,9 @@ call plug#begin('~/.config/nvim/plugged')
 
         " organize imports
         command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+
+        " Add `:Fold` command to fold current buffer.
+        command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
         inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
@@ -881,6 +879,10 @@ call plug#begin('~/.config/nvim/plugged')
 
         " liquid support
         " Plug 'tpope/vim-liquid'
+    " }}}
+
+    " Python {{{
+        Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     " }}}
 
     " JavaScript {{{
