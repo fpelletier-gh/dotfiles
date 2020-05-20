@@ -125,6 +125,8 @@ call plug#begin('~/.config/nvim/plugged')
     au BufNewFile,BufRead *.handlebars set filetype=html
     au BufNewFile,BufRead *.hbs set filetype=html
 
+    " Plug 'python-mode/python-mode', { 'branch': 'develop' }
+    
     " Load colorschemes
     Plug 'chriskempson/base16-vim'
     Plug 'joshdick/onedark.vim'
@@ -194,6 +196,9 @@ call plug#begin('~/.config/nvim/plugged')
     " qq to record, Q to replay
     nnoremap Q @q
 
+    " Make last word UPPERCASE 
+    inoremap <C-f> <C-o>b<C-o>gUiw<C-o>e<right><right>
+
     " Make s surround word and S surround line
     nmap s ysiw
     nmap S yss
@@ -203,7 +208,7 @@ call plug#begin('~/.config/nvim/plugged')
     nnoremap <leader>O O<esc>    
 
     " Replace visual selection
-    vnoremap <leader>p "_dP
+    " vnoremap <leader>p "_dP
 
     " Session saving
     Plug 'tpope/vim-obsession'
@@ -229,7 +234,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Ctag sidebar
       Plug 'liuchengxu/vista.vim'
-      nmap <leader>t :Vista!!<CR>
+      nmap <leader>t :Vista coc<CR>
       nmap <Leader>T :Vista finder fzf:coc<CR>
 
 
@@ -479,15 +484,18 @@ call plug#begin('~/.config/nvim/plugged')
     nmap <leader>vd :call VimuxRunCommand("npm run debug")<cr>
     nmap <leader>ve :call VimuxRunCommand("npm run lint")<cr>
     nmap <leader>vn :call VimuxRunCommand("new-component ")<left><left>
+
+    nmap <leader>vf :call VimuxRunCommand("python manage.py test functional_tests")<cr>
+    nmap <leader>vv :call VimuxRunCommand("python manage.py test lists")<cr>
+    nmap <leader>vm :call VimuxRunCommand("python manage.py ")<left><left>
+
     nmap <Leader>vp :VimuxPromptCommand<CR>
     nmap <Leader>vl :VimuxRunLastCommand<CR>
     nmap <Leader>vi :VimuxInspectRunner<CR>
     nmap <Leader>vq :VimuxCloseRunner<CR>
     nmap <Leader>vc :VimuxInterruptRunner<CR>
-
-    " coc-python
-    nmap <leader>y :call VimuxRunCommand("fh")<cr><M-j>
-    nmap <leader>Y :call VimuxRunCommand("python3")<cr><M-j>
+    nmap <leader>y :call VimuxRunCommand("fh")<cr><M-j><M-l>
+    nmap <leader>Y :call VimuxRunCommand("python")<cr><M-j><M-l>
 
     " enables repeating other supported plugins with the . command
     Plug 'tpope/vim-repeat'
@@ -757,6 +765,10 @@ call plug#begin('~/.config/nvim/plugged')
 
         " coc-snippets list
         nmap <leader>sn :CocList snippets<cr>
+
+        " coc-python
+        nmap <leader>p :CocCommand python.execInTerminal<cr>
+        nmap <leader>P :CocCommand python.startREPL<cr>
 
         " coc-prettier
         command! -nargs=0 Prettier :CocCommand prettier.formatFile

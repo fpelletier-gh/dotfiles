@@ -52,5 +52,5 @@
   "emmet.showAbbreviationSuggestions": true,
   "html.filetypes": ["html", "handlebars", "htmldjango", "django"],
   "python.jediEnabled": false,
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
 }
