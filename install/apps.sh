@@ -9,28 +9,28 @@ sudo apt-get update
 
 echo -e "\\n\\nInstalling application"
 
-apt install ack -y
-apt install bat -y
-apt install cmake -y
-apt install curl -y
-apt install exuberant-ctags -y
-apt install grep -y
-apt install highlight -y
-apt install htop -y
-apt install hub -y
-apt install kitty -y
-apt install neofetch -y
-apt install neovim -y
-apt install ngrep -y
-apt install python3 -y
-apt install python3-pip -y
-apt install ripgrep -y
-apt install silversearcher-ag -y
-apt install tmux -y
-apt install vim -y
-apt install wget -y
-apt install xclip -y
-apt install zsh -y
+sudo apt install ack -y
+sudo apt install bat -y
+sudo apt install cmake -y
+sudo apt install curl -y
+sudo apt install exuberant-ctags -y
+sudo apt install grep -y
+sudo apt install highlight -y
+sudo apt install htop -y
+sudo apt install hub -y
+sudo apt install kitty -y
+sudo apt install neofetch -y
+sudo apt install neovim -y
+sudo apt install ngrep -y
+sudo apt install python3 -y
+sudo apt install python3-pip -y
+sudo apt install ripgrep -y
+sudo apt install silversearcher-ag -y
+sudo apt install tmux -y
+sudo apt install vim -y
+sudo apt install wget -y
+sudo apt install xclip -y
+sudo apt install zsh -y
 
 echo -e "\\n\\nInstalling FZF"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
