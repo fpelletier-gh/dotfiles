@@ -17,7 +17,6 @@ sudo apt install exuberant-ctags -y
 sudo apt install grep -y
 sudo apt install highlight -y
 sudo apt install htop -y
-sudo apt install hub -y
 sudo apt install kitty -y
 sudo apt install neofetch -y
 sudo apt install neovim -y
@@ -36,15 +35,30 @@ echo -e "\\n\\nInstalling FZF"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
+echo -e "\\n\\nInstalling Z"
+git clone https://github.com/rupa/z.git ~/z
+touch ~/.z
+
 echo -e "\\n\\nInstalling python for neovim"
 python3 -m pip install --upgrade pynvim
 
 echo -e "\\n\\nInstalling nodejs with nvm"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | sh
+nvm install --lts
 
-echo "Installing tmux plugins manager"
+echo -e "\\n\\nInstalling tmux plugins manager"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux
 
-echo "Installing Fonts"
+echo -e "\\n\\nInstalling Fonts"
 sudo fc-cache -f -v
 
+echo -e "\\n\\nInstalling virtualenvwrapper"
+pip3 install virtualenvwrapper
+export WORKON_HOME=~/Envs
+mkdir -p $WORKON_HOME
+source /home/francis/.local/bin/virtualenvwrapper.sh
+
+echo -e "\\n\\nInstalling Ripgrep"
+curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
+sudo dpkg -i ripgrep_11.0.2_amd64.deb
+rm ripgrep_11.0.2_amd64.deb
