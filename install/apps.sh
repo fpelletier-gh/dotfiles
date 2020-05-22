@@ -47,7 +47,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | sh
 nvm install --lts
 
 echo -e "\\n\\nInstalling tmux plugins manager"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo -e "\\n\\nInstalling Fonts"
 sudo fc-cache -f -v
