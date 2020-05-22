@@ -23,6 +23,7 @@ sudo apt install neovim -y
 sudo apt install ngrep -y
 sudo apt install python3 -y
 sudo apt install python3-pip -y
+sudo apt install python3-venv -y
 sudo apt install ripgrep -y
 sudo apt install silversearcher-ag -y
 sudo apt install tmux -y
