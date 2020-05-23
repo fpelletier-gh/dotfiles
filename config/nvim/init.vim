@@ -234,8 +234,8 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Ctag sidebar
       Plug 'liuchengxu/vista.vim'
-      nmap <leader>t :Vista coc<CR>
-      nmap <Leader>T :Vista finder fzf:coc<CR>
+      nmap <leader>ta :Vista coc<CR>
+      nmap <Leader>tf :Vista finder fzf:coc<CR>
 
 
     " Nvim terminal
@@ -253,25 +253,36 @@ call plug#begin('~/.config/nvim/plugged')
     endif
 
     if has('nvim')
-    tnoremap <M-h> <c-\><c-n><c-w>h
-    tnoremap <M-j> <c-\><c-n><c-w>j
-    tnoremap <M-k> <c-\><c-n><c-w>k
-    tnoremap <M-l> <c-\><c-n><c-w>l
+      tnoremap <M-h> <c-\><c-n><c-w>h
+      tnoremap <M-j> <c-\><c-n><c-w>j
+      tnoremap <M-k> <c-\><c-n><c-w>k
+      tnoremap <M-l> <c-\><c-n><c-w>l
     endif
+
+    nnoremap <leader>tt :tabnew \| te<cr>i
+    nnoremap <leader>th :vsplit \| te<cr>i
+    nnoremap <leader>tj :split \| te<cr><C-w>ri
+    nnoremap <leader>tk :split \| te<cr>i
+    nnoremap <leader>tl :vsplit \| te<cr><C-w>ri
 
     " Buffer
     nnoremap ]b :bnext<cr>
     nnoremap [b :bprev<cr>
 
     " Moving Line
-    nnoremap <silent> <C-k> :move-2<cr>
-    nnoremap <silent> <C-j> :move+<cr>
-    nnoremap <silent> <C-h> <<
-    nnoremap <silent> <C-l> >>
-    xnoremap <silent> <C-k> :move-2<cr>gv
-    xnoremap <silent> <C-j> :move'>+<cr>gv
-    xnoremap <silent> <C-h> <gv
-    xnoremap <silent> <C-l> >gv
+    nnoremap <silent> <M-k> :move-2<cr>
+    nnoremap <silent> <M-j> :move+<cr>
+    nnoremap <silent> <M-h> <<
+    nnoremap <silent> <M-l> >>
+    inoremap <silent> <M-k> <C-o>:move-2<cr>
+    inoremap <silent> <M-j> <C-o>:move+<cr>
+    inoremap <silent> <M-h> <C-o><<
+    inoremap <silent> <M-l> <C-o>>>
+    xnoremap <silent> <M-k> :move-2<cr>gv
+    xnoremap <silent> <M-j> :move'>+<cr>gv
+    xnoremap <silent> <M-h> <gv
+    xnoremap <silent> <M-l> >gv
+
     xnoremap < <gv
     xnoremap > >gv
 
@@ -312,27 +323,22 @@ call plug#begin('~/.config/nvim/plugged')
     " enable . command in visual mode
     vnoremap . :normal .<cr>
 
-    nnoremap <M-h> <C-w>h
-    nnoremap <M-j> <C-w>j
-    nnoremap <M-k> <C-w>k
-    nnoremap <M-l> <C-w>l
+    nnoremap <C-h> <C-w>h
+    nnoremap <C-j> <C-w>j
+    nnoremap <C-k> <C-w>k
+    nnoremap <C-l> <C-w>l
 
-    inoremap <M-h> <C-o><C-w>h<esc>
-    inoremap <M-j> <C-o><C-w>j<esc>
-    inoremap <M-k> <C-o><C-w>k<esc>
-    inoremap <M-l> <C-o><C-w>l<esc>
-
-    xnoremap <silent> <M-h> <C-c><C-w>h
-    xnoremap <silent> <M-j> <C-c><C-w>j
-    xnoremap <silent> <M-k> <C-c><C-w>k
-    xnoremap <silent> <M-l> <C-c><C-w>l
+    xnoremap <silent> <C-h> <C-c><C-w>h
+    xnoremap <silent> <C-j> <C-c><C-w>j
+    xnoremap <silent> <C-k> <C-c><C-w>k
+    xnoremap <silent> <C-l> <C-c><C-w>l
 
     Plug 'christoomey/vim-tmux-navigator'
         let g:tmux_navigator_no_mappings = 1
-        nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
-        nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
-        nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
-        nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+        nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+        nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+        nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+        nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 
     nmap <leader>z <Plug>Zoom
 
@@ -341,12 +347,12 @@ call plug#begin('~/.config/nvim/plugged')
     " move line mappings
     " ∆ is <A-j> on macOS
     " ˚ is <A-k> on macOS
-    nnoremap ∆ :m .+1<cr>==
-    nnoremap ˚ :m .-2<cr>==
-    inoremap ∆ <Esc>:m .+1<cr>==gi
-    inoremap ˚ <Esc>:m .-2<cr>==gi
-    vnoremap ∆ :m '>+1<cr>gv=gv
-    vnoremap ˚ :m '<-2<cr>gv=gv
+    " nnoremap ∆ :m .+1<cr>==
+    " nnoremap ˚ :m .-2<cr>==
+    " inoremap ∆ <Esc>:m .+1<cr>==gi
+    " inoremap ˚ <Esc>:m .-2<cr>==gi
+    " vnoremap ∆ :m '>+1<cr>gv=gv
+    " vnoremap ˚ :m '<-2<cr>gv=gv
 
     vnoremap $( <esc>`>a)<esc>`<i(<esc>
     vnoremap $[ <esc>`>a]<esc>`<i[<esc>
