@@ -3,7 +3,7 @@
 	name = Francis Pelletier
 	email = francispelletier2@hotmail.com
 [github]
-	user = fpelletier-gh
+  user = fpelletier-gh
 [color]
     diff = auto
     status = auto
