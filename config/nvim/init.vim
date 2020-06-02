@@ -125,8 +125,6 @@ call plug#begin('~/.config/nvim/plugged')
     au BufNewFile,BufRead *.handlebars set filetype=html
     au BufNewFile,BufRead *.hbs set filetype=html
 
-    " Plug 'python-mode/python-mode', { 'branch': 'develop' }
-    
     " Load colorschemes
     Plug 'chriskempson/base16-vim'
     Plug 'joshdick/onedark.vim'
@@ -899,7 +897,18 @@ call plug#begin('~/.config/nvim/plugged')
     " }}}
 
     " Python {{{
+        " Plug 'python-mode/python-mode', { 'branch': 'develop' }
+    
         Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+
+        Plug 'janko/vim-test'
+        nmap <silent> t<C-n> :TestNearest<CR>
+        nmap <silent> t<C-f> :TestFile<CR>
+        nmap <silent> t<C-s> :TestSuite<CR>
+        nmap <silent> t<C-l> :TestLast<CR>
+        nmap <silent> t<C-g> :TestVisit<CR>
+        let test#strategy = "neovim"
+        let test#neovim#term_position = "vert botright"
     " }}}
 
     " JavaScript {{{
