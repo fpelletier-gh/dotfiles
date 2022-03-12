@@ -232,8 +232,8 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Ctag sidebar
       Plug 'liuchengxu/vista.vim'
-      nmap <leader>t :Vista coc<CR>
-      nmap <Leader>T :Vista finder fzf:coc<CR>
+      nmap <leader>T :Vista coc<CR>
+      nmap <Leader>t :Vista finder fzf:coc<CR>
 
 
     " Nvim terminal
@@ -918,7 +918,7 @@ call plug#begin('~/.config/nvim/plugged')
         " let g:used_javascript_libs = 'underscore,requirejs,chai,jquery,express'
 
         " Plug 'moll/vim-node', { 'for': 'javascript' }
-        Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+        " Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
         Plug 'MaxMEllon/vim-jsx-pretty'
         let g:vim_jsx_pretty_highlight_close_tag = 1
     " }}}
