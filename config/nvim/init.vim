@@ -376,10 +376,10 @@ call plug#begin('~/.config/nvim/plugged')
     nnoremap <leader>b :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 
     " <Leader>c Close quickfix/location window
-    nnoremap <leader>c :cclose<bar>lclose<cr>
+    nnoremap <leader>C :cclose<bar>lclose<cr>
 
     " <Leader>C Open quickfix/location window
-    nnoremap <leader>C :copen<cr>
+    nnoremap <leader>c :copen<cr>
     nnoremap <leader>l :lopen<cr>
 
     " scroll the viewport faster
@@ -479,26 +479,29 @@ call plug#begin('~/.config/nvim/plugged')
     " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
     Plug 'tpope/vim-surround'
 
+    " Regenerate ctag files automatically
+    Plug 'ludovicchabant/vim-gutentags'
+
     " tmux integration for vim
-    Plug 'benmills/vimux'
+    " Plug 'benmills/vimux'
 
-    nmap <leader>vs :call VimuxRunCommand("npm run start")<cr>
-    nmap <leader>vt :call VimuxRunCommand("npm run test -- --watch")<cr>
-    nmap <leader>vd :call VimuxRunCommand("npm run debug")<cr>
-    nmap <leader>ve :call VimuxRunCommand("npm run lint")<cr>
-    nmap <leader>vn :call VimuxRunCommand("new-component ")<left><left>
+    " nmap <leader>vs :call VimuxRunCommand("npm run start")<cr>
+    " nmap <leader>vt :call VimuxRunCommand("npm run test -- --watch")<cr>
+    " nmap <leader>vd :call VimuxRunCommand("npm run debug")<cr>
+    " nmap <leader>ve :call VimuxRunCommand("npm run lint")<cr>
+    " nmap <leader>vn :call VimuxRunCommand("new-component ")<left><left>
 
-    nmap <leader>vf :call VimuxRunCommand("python manage.py test functional_tests")<cr>
-    nmap <leader>vv :call VimuxRunCommand("python manage.py test lists")<cr>
-    nmap <leader>vm :call VimuxRunCommand("python manage.py ")<left><left>
+    " nmap <leader>vf :call VimuxRunCommand("python manage.py test functional_tests")<cr>
+    " nmap <leader>vv :call VimuxRunCommand("python manage.py test lists")<cr>
+    " nmap <leader>vm :call VimuxRunCommand("python manage.py ")<left><left>
 
-    nmap <Leader>vp :VimuxPromptCommand<CR>
-    nmap <Leader>vl :VimuxRunLastCommand<CR>
-    nmap <Leader>vi :VimuxInspectRunner<CR>
-    nmap <Leader>vq :VimuxCloseRunner<CR>
-    nmap <Leader>vc :VimuxInterruptRunner<CR>
-    nmap <leader>y :call VimuxRunCommand("fh")<cr><M-j><M-l>
-    nmap <leader>Y :call VimuxRunCommand("python")<cr><M-j><M-l>
+    " nmap <Leader>vp :VimuxPromptCommand<CR>
+    " nmap <Leader>vl :VimuxRunLastCommand<CR>
+    " nmap <Leader>vi :VimuxInspectRunner<CR>
+    " nmap <Leader>vq :VimuxCloseRunner<CR>
+    " nmap <Leader>vc :VimuxInterruptRunner<CR>
+    " nmap <leader>y :call VimuxRunCommand("fh")<cr><M-j><M-l>
+    " nmap <leader>Y :call VimuxRunCommand("python")<cr><M-j><M-l>
 
     " enables repeating other supported plugins with the . command
     Plug 'tpope/vim-repeat'
@@ -658,11 +661,15 @@ call plug#begin('~/.config/nvim/plugged')
     \                 <bang>0 ? fzf#vim#with_preview('up:60%')
     \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
     \                 <bang>0)
-  nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+  " nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+  nnoremap <silent> <Leader>ag :Ag<CR>
   nnoremap <silent> <Leader>AG :Ag <C-R><C-A><CR>
   xnoremap <silent> <Leader>ag y:Ag <C-R>"<CR>
   nnoremap <silent> <Leader>` :Marks<CR>
-  nnoremap <silent> <Leader>r :Rg<CR>
+  nnoremap <silent> <Leader>rr :Rg<CR>
+  nnoremap <silent> <Leader>rt :Tags<CR>
+  nnoremap <silent> <Leader>rc :Commits<CR>
+  nnoremap <silent> <Leader>rb :BCommits<CR>
 
   inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
   imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -723,7 +730,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     " vim-fugitive {{{
         Plug 'tpope/vim-fugitive'
-        nmap <silent> <leader>gg :Gstatus<CR>gg<c-n>
+        nmap <silent> <leader>gg :Git<CR>
         nmap <silent> <leader>gd :Gdiff<CR>
         nmap <silent> <leader>gv :GV<CR>
         nmap <leader>ge :Gedit<cr>
