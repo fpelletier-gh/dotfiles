@@ -10,15 +10,6 @@ call plug#begin('~/.config/nvim/plugged')
     let maplocalleader = ' '
 
 " General {{{
-    " Abbreviations
-    abbr funciton function
-    abbr teh the
-    abbr tempalte template
-    abbr fitler filter
-    abbr cosnt const
-    abbr attribtue attribute
-    abbr attribuet attribute
-
     set autoread " detect when a file is changed
 
     set history=1000 " change history to 1000
@@ -26,6 +17,9 @@ call plug#begin('~/.config/nvim/plugged')
 
     set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
     set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+    set nobackup
+    set nowritebackup
 
     if (has('nvim'))
         " show results of substition as they're happening
@@ -73,11 +67,20 @@ call plug#begin('~/.config/nvim/plugged')
     set noshowmode " don't show which mode disabled for PowerLine
     set wildmode=list:longest " complete files like a shell
     set shell=$SHELL
-    set cmdheight=1 " command bar height
+    set cmdheight=2 " command bar height
     set title " set terminal title
     set showmatch " show matching braces
-    set updatetime=300
+    set updatetime=200
+
+    " Always show the signcolumn, otherwise it would shift the text each time
+    " diagnostics appear/become resolved.
+    " if has("nvim-0.5.0") || has("patch-8.1.1564")
+      " Recently vim can merge signcolumn and number column into one
+      " set signcolumn=number
+    " else
     set signcolumn=yes
+    " endif
+
     set shortmess+=c
 
     " Tab control
@@ -99,7 +102,15 @@ call plug#begin('~/.config/nvim/plugged')
     set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
     set showbreak=↪
 
-    set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
+    " " Hybrid number in normal mode Absolute number in insert mode
+    " augroup numbertoggle
+    "   autocmd!
+    "   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+    "   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+    " augroup END
+   
+    " Explicitly tell vim that the terminal supports 256 colors
+    set t_Co=256 
 
     " switch cursor to line when in insert mode, and block when not
     set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
@@ -173,16 +184,29 @@ call plug#begin('~/.config/nvim/plugged')
     " }}}
 " }}}
 
+" Synchronize the clipboard in wsl
+set clipboard+=unnamedplus
+let g:clipboard = {
+          \   'name': 'win32yank-wsl',
+          \   'copy': {
+          \      '+': 'win32yank.exe -i --crlf',
+          \      '*': 'win32yank.exe -i --crlf',
+          \    },
+          \   'paste': {
+          \      '+': 'win32yank.exe -o --lf',
+          \      '*': 'win32yank.exe -o --lf',
+          \   },
+          \   'cache_enabled': 0,
+          \ }
+
 " General Mappings {{{
     " remap esc
     inoremap jk <esc>
 
+    nnoremap ; :
+
     " shortcut to save
     nmap <leader>w :w<cr>
-
-    " tabs navigatione
-    nnoremap ]t :tabn<cr>
-    nnoremap [t :tabp<cr>
 
     " shortcut to quit
     nmap <leader>q :q<cr>
@@ -197,26 +221,58 @@ call plug#begin('~/.config/nvim/plugged')
     " Make last word UPPERCASE 
     inoremap <C-f> <C-o>b<C-o>gUiw<C-o>e<right><right>
 
-    " Make s surround word and S surround line
-    nmap s ysiw
-    nmap S yss
-
-    " Open new line below and above current line
-    nnoremap <leader>o o<esc>
-    nnoremap <leader>O O<esc>    
-
     " Replace visual selection
-    " vnoremap <leader>p "_dP
+    vnoremap <leader>p "_dP
 
     " Session saving
     Plug 'tpope/vim-obsession'
     nnoremap <leader>bs :Obsession<cr>
+
+    Plug 'chrisbra/Recover.vim'
+
+    " Better terminal integration
+    Plug 'kassio/neoterm'
+    let g:neoterm_default_mod='botright vertical'
+    let g:neoterm_autoscroll=1
+
+
+    nnoremap <leader>tr :<c-u>exec v:count.'T npm run dev'<cr>
+    nnoremap <leader>tb :<c-u>exec v:count.'T npm run build'<cr>
+    nnoremap <leader>tk :<c-u>exec v:count.'Tkill'<cr>
+    nnoremap <leader>to :<c-u>exec v:count.'Topen'<cr>
+    nnoremap <leader>tl :Tnew<cr><C-w>li
+    nnoremap <leader>tt :tabnew<cr>
+    nnoremap <leader>tj :belowright Tnew<cr><C-w>ji
+    nnoremap <leader>tc :TcloseAll<cr>
+    nnoremap <leader>tC :TcloseAll!<cr>
+    " nnoremap <leader>tt :tabnew \| te<cr>i
+    " nnoremap <leader>th :vsplit \| te<cr>i
+    " nnoremap <leader>tj :split \| te<cr><C-w>ri
+    " nnoremap <leader>tk :split \| te<cr>i
+    " nnoremap <leader>tl :vsplit \| te<cr><C-w>ri
+    
+
+    " Improved text object
+    Plug 'wellle/targets.vim'
+
+    " Improved f and t search
+    Plug 'justinmk/vim-sneak'
+    let g:sneak#label = 1
+
+    " Smooth scrolling
+    Plug 'psliwka/vim-smoothie'
 
     " Highlight yank
     if exists('##TextYankPost')
       Plug 'machakann/vim-highlightedyank'
       let g:highlightedyank_highlight_duration = 100
     endif
+
+    Plug 'junegunn/vim-easy-align'
+    " Start interactive EasyAlign in visual mode (e.g. vipga)
+    xmap ga <Plug>(EasyAlign)
+    " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+    nmap ga <Plug>(EasyAlign)
 
     Plug 'junegunn/vim-slash'
     if has('timers')
@@ -232,8 +288,9 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Ctag sidebar
       Plug 'liuchengxu/vista.vim'
-      nmap <leader>T :Vista coc<CR>
-      nmap <Leader>t :Vista finder fzf:coc<CR>
+      let g:vista_sidebar_width = 40
+      nmap <leader>vI :Vista coc<CR>
+      nmap <Leader>vi :Vista finder fzf:coc<CR>
 
 
     " Nvim terminal
@@ -257,12 +314,6 @@ call plug#begin('~/.config/nvim/plugged')
       tnoremap <M-l> <c-\><c-n><c-w>l
     endif
 
-    nnoremap <leader>tt :tabnew \| te<cr>i
-    nnoremap <leader>th :vsplit \| te<cr>i
-    nnoremap <leader>tj :split \| te<cr><C-w>ri
-    nnoremap <leader>tk :split \| te<cr>i
-    nnoremap <leader>tl :vsplit \| te<cr><C-w>ri
-    
     " Buffer
     nnoremap ]b :bnext<cr>
     nnoremap [b :bprev<cr>
@@ -284,7 +335,8 @@ call plug#begin('~/.config/nvim/plugged')
     xnoremap > >gv
 
     " edit ~/.config/nvim/init.vim
-    map <leader>ev :e! ~/.config/nvim/init.vim<cr>
+    nmap <leader>ev :e! ~/.config/nvim/init.vim<cr>
+    nmap <leader>es :source $MYVIMRC<cr>
     
     " edit gitconfig
     " map <leader>eg :e! ~/.gitconfig<cr>
@@ -361,16 +413,6 @@ call plug#begin('~/.config/nvim/plugged')
 
     " toggle cursor line
     nnoremap <leader>i :set cursorline!<cr>
-
-    " Quickfix
-    nnoremap ]q :cnext<cr>zz
-    nnoremap [q :cprev<cr>zz
-    nnoremap ]Q :clast<cr>zz
-    nnoremap [Q :cfirst<cr>zz
-    nnoremap ]l :lnext<cr>zz
-    nnoremap [l :lprev<cr>zz
-    nnoremap ]L :llast<cr>zz
-    nnoremap [L :lfirst<cr>zz
 
     " <leader>b | buf-search
     nnoremap <leader>b :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
@@ -481,27 +523,65 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Regenerate ctag files automatically
     Plug 'ludovicchabant/vim-gutentags'
+    let g:gutentags_add_default_project_roots = 0
+    let g:gutentags_project_root = ['package.json', '.git']
+    let g:gutentags_generate_on_new = 1
+    let g:gutentags_generate_on_missing = 1
+    let g:gutentags_generate_on_write = 1
+    let g:gutentags_generate_on_empty_buffer = 0
+    let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+ailmnS',
+      \ ]
 
-    " tmux integration for vim
-    " Plug 'benmills/vimux'
-
-    " nmap <leader>vs :call VimuxRunCommand("npm run start")<cr>
-    " nmap <leader>vt :call VimuxRunCommand("npm run test -- --watch")<cr>
-    " nmap <leader>vd :call VimuxRunCommand("npm run debug")<cr>
-    " nmap <leader>ve :call VimuxRunCommand("npm run lint")<cr>
-    " nmap <leader>vn :call VimuxRunCommand("new-component ")<left><left>
-
-    " nmap <leader>vf :call VimuxRunCommand("python manage.py test functional_tests")<cr>
-    " nmap <leader>vv :call VimuxRunCommand("python manage.py test lists")<cr>
-    " nmap <leader>vm :call VimuxRunCommand("python manage.py ")<left><left>
-
-    " nmap <Leader>vp :VimuxPromptCommand<CR>
-    " nmap <Leader>vl :VimuxRunLastCommand<CR>
-    " nmap <Leader>vi :VimuxInspectRunner<CR>
-    " nmap <Leader>vq :VimuxCloseRunner<CR>
-    " nmap <Leader>vc :VimuxInterruptRunner<CR>
-    " nmap <leader>y :call VimuxRunCommand("fh")<cr><M-j><M-l>
-    " nmap <leader>Y :call VimuxRunCommand("python")<cr><M-j><M-l>
+    let g:gutentags_ctags_exclude = [
+        \ '*.git', '*.svg', '*.hg',
+        \ '*/tests/*',
+        \ 'build',
+        \ 'dist',
+        \ '*sites/*/files/*',
+        \ 'bin',
+        \ 'node_modules',
+        \ '.next/*',
+        \ 'bower_components',
+        \ 'cache',
+        \ 'compiled',
+        \ 'docs',
+        \ 'example',
+        \ 'bundle',
+        \ 'vendor',
+        \ '*.md',
+        \ '*-lock.json',
+        \ '*.lock',
+        \ '*bundle*.js',
+        \ '*build*.js',
+        \ '.*rc*',
+        \ '*.json',
+        \ '*.min.*',
+        \ '*.map',
+        \ '*.bak',
+        \ '*.zip',
+        \ '*.pyc',
+        \ '*.class',
+        \ '*.sln',
+        \ '*.Master',
+        \ '*.csproj',
+        \ '*.tmp',
+        \ '*.csproj.user',
+        \ '*.cache',
+        \ '*.pdb',
+        \ 'tags*',
+        \ 'cscope.*',
+        \ '*.css',
+        \ '*.less',
+        \ '*.scss',
+        \ '*.exe', '*.dll',
+        \ '*.mp3', '*.ogg', '*.flac',
+        \ '*.swp', '*.swo',
+        \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+        \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+        \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+        \ ]
 
     " enables repeating other supported plugins with the . command
     Plug 'tpope/vim-repeat'
@@ -511,9 +591,6 @@ call plug#begin('~/.config/nvim/plugged')
 
     " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
     Plug 'AndrewRadev/splitjoin.vim'
-
-    Plug 'xolox/vim-misc'
-    Plug 'xolox/vim-easytags'
 
     " detect indent style (tabs vs. spaces)
     Plug 'tpope/vim-sleuth'
@@ -662,9 +739,9 @@ call plug#begin('~/.config/nvim/plugged')
     \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
     \                 <bang>0)
   " nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
-  nnoremap <silent> <Leader>ag :Ag<CR>
-  nnoremap <silent> <Leader>AG :Ag <C-R><C-A><CR>
-  xnoremap <silent> <Leader>ag y:Ag <C-R>"<CR>
+  " nnoremap <silent> <Leader>ag :Ag<CR>
+  " nnoremap <silent> <Leader>AG :Ag <C-R><C-A><CR>
+  " xnoremap <silent> <Leader>ag y:Ag <C-R>"<CR>
   nnoremap <silent> <Leader>` :Marks<CR>
   nnoremap <silent> <Leader>rr :Rg<CR>
   nnoremap <silent> <Leader>rt :Tags<CR>
@@ -768,10 +845,33 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-snippets',
         \ 'coc-prettier',
         \ 'coc-explorer',
-        \ 'coc-highlight'
+        \ 'coc-tabnine',
+        \ 'coc-fzf-preview',
+        \ 'coc-highlight',
+        \ 'coc-lists',
         \ ]
 
         autocmd CursorHold * silent call CocActionAsync('highlight')
+
+        " coc-fzf-preview
+        nmap <Leader>f [fzf-p]
+        xmap <Leader>f [fzf-p]
+
+        nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+        nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
+        nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
+        nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.Buffers<CR>
+        nnoremap <silent> [fzf-p]B     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+        nnoremap <silent> [fzf-p]o     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
+        nnoremap <silent> [fzf-p]<C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
+        nnoremap <silent> [fzf-p]g;    :<C-u>CocCommand fzf-preview.Changes<CR>
+        nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+        nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+        nnoremap          [fzf-p]gr    :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+        xnoremap          [fzf-p]gr    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+        nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
+        nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
+        nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
 
         " coc-snippets list
         nmap <leader>sn :CocList snippets<cr>
@@ -782,7 +882,9 @@ call plug#begin('~/.config/nvim/plugged')
 
         " coc-prettier
         command! -nargs=0 Prettier :CocCommand prettier.formatFile
-        nmap <leader>e :CocCommand prettier.formatFile<cr>
+        " nmap <leader>e :CocCommand prettier.formatFile<cr>
+
+        nmap <leader>ed :!code .<cr>
 
         " coc-git
         nmap [g <Plug>(coc-git-prevchunk)
@@ -807,8 +909,8 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <silent> <leader>rn <Plug>(coc-rename)
 
         " Remap for format selected region
-        xmap <leader>f  <Plug>(coc-format-selected)
-        nmap <leader>f  <Plug>(coc-format-selected)
+        " xmap <leader>f  <Plug>(coc-format-selected)
+        " nmap <leader>f  <Plug>(coc-format-selected)
 
         " Applying codeAction to the selected region.
         " Example: `<leader>aap` for current paragraph
@@ -824,16 +926,32 @@ call plug#begin('~/.config/nvim/plugged')
 
         " Remap keys for applying codeAction to the current line.
         nmap <leader>am :CocCommand actions.open<cr> 
-        "
-        " Introduce function text object
+        " Remap keys for applying codeAction to the current buffer.
+        nmap <leader>ac  <Plug>(coc-codeaction)
+        " Apply AutoFix to problem on the current line.
+        nmap <leader>qf  <Plug>(coc-fix-current)
+        " Run the Code Lens action on the current line.
+        nmap <leader>cl  <Plug>(coc-codelens-action)
+        
+        " Map function and class text objects
         " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
         xmap if <Plug>(coc-funcobj-i)
         xmap af <Plug>(coc-funcobj-a)
         omap if <Plug>(coc-funcobj-i)
         omap af <Plug>(coc-funcobj-a)
+        xmap ic <Plug>(coc-classobj-i)
+        omap ic <Plug>(coc-classobj-i)
+        xmap ac <Plug>(coc-classobj-a)
+        omap ac <Plug>(coc-classobj-a)
 
         " Show all diagnostics.
         nnoremap <silent> <leader>ad  :<C-u>CocList diagnostics<cr>
+
+        " Fuzzy find functions
+        nnoremap <silent> <leader>df  :<C-u>CocList --auto-preview outline -k Function<cr>
+
+        " Add `:Format` command to format current buffer.
+        command! -nargs=0 Format :call CocActionAsync('format')
 
         " organize imports
         command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
