@@ -47,7 +47,7 @@ prepend_path $DOTFILES/bin
 prepend_path $HOME/bin
 prepend_path /home/francis/.local/bin
 prepend_path /mnt/c/users/Franc/Downloads
-
+prepend_path /home/francis/.cargo/bin
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
 if [[ -d ~/code ]]; then
@@ -106,9 +106,11 @@ export ZPLUGDIR="$CACHEDIR/zsh/plugins"
 # array containing plugin information (managed by zfetch)
 typeset -A plugins
 
+zfetch $ZPLUGDIR mafredri/zsh-async async.plugin.zsh
 zfetch $ZPLUGDIR zsh-users/zsh-syntax-highlighting
 zfetch $ZPLUGDIR zsh-users/zsh-autosuggestions
 zfetch $ZPLUGDIR chriskempson/base16-shell
+zfetch $ZPLUGDIR Aloxaf/fzf-tab
 
 # if [ "$FNM_LOADED" != "true" ]; then
 #     eval "`fnm env --multi --use-on-cd`"
@@ -128,7 +130,8 @@ fi
 # add a config file for ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 
-[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+# [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
@@ -140,60 +143,60 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # fo [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
-fo() {
-  local files
-  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR} "${files[@]}"
-}
-
-# fh [FUZZY PATTERN] - Search in command history
-fh() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
-
-# fbr [FUZZY PATTERN] - Checkout specified branch
-# Include remote branches, sorted by most recent commit and limited to 30
-fgb() {
-  local branches branch
-  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
-
-# tm [SESSION_NAME | FUZZY PATTERN] - create new tmux session, or switch to existing one.
-# Running `tm` will let you fuzzy-find a session mame
-# Passing an argument to `ftm` will switch to that session if it exists or create it otherwise
-ftm() {
-  [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
-  if [ $1 ]; then
-    tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
-  fi
-  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
-}
-
-# tm [SESSION_NAME | FUZZY PATTERN] - delete tmux session
-# Running `tm` will let you fuzzy-find a session mame to delete
-# Passing an argument to `ftm` will delete that session if it exists
-ftmk() {
-  if [ $1 ]; then
-    tmux kill-session -t "$1"; return
-  fi
-  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux kill-session -t "$session" || echo "No session found to delete."
-}
-
-# fuzzy grep via rg and open in vim with line number
-fgr() {
-  local file
-  local line
-
-  read -r file line <<<"$(rg --no-heading --line-number $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
-
-  if [[ -n $file ]]
-  then
-     vim $file +$line
-  fi
-}
+# fo() {
+#   local files
+#   IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+#   [[ -n "$files" ]] && ${EDITOR} "${files[@]}"
+# }
+#
+# # fh [FUZZY PATTERN] - Search in command history
+# fh() {
+#   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+# }
+#
+# # fbr [FUZZY PATTERN] - Checkout specified branch
+# # Include remote branches, sorted by most recent commit and limited to 30
+# fgb() {
+#   local branches branch
+#   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+#   branch=$(echo "$branches" |
+#            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+#   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+# }
+#
+# # tm [SESSION_NAME | FUZZY PATTERN] - create new tmux session, or switch to existing one.
+# # Running `tm` will let you fuzzy-find a session mame
+# # Passing an argument to `ftm` will switch to that session if it exists or create it otherwise
+# ftm() {
+#   [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+#   if [ $1 ]; then
+#     tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+#   fi
+#   session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+# }
+#
+# # tm [SESSION_NAME | FUZZY PATTERN] - delete tmux session
+# # Running `tm` will let you fuzzy-find a session mame to delete
+# # Passing an argument to `ftm` will delete that session if it exists
+# ftmk() {
+#   if [ $1 ]; then
+#     tmux kill-session -t "$1"; return
+#   fi
+#   session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux kill-session -t "$session" || echo "No session found to delete."
+# }
+#
+# # fuzzy grep via rg and open in vim with line number
+# fgr() {
+#   local file
+#   local line
+#
+#   read -r file line <<<"$(rg --no-heading --line-number $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
+#
+#   if [[ -n $file ]]
+#   then
+#      vim $file +$line
+#   fi
+# }
 
 # alias git to hub
 if type hub > /dev/null 2>&1; then
@@ -247,9 +250,7 @@ if [[ -n $NVIM_LISTEN_ADDRESS ]]; then
 fi
 
 # use nvim, but don't make me think about it
-alias vim="nvim"
 alias vi="nvim"
-alias vis="nvim -S"
 
 # Filesystem aliases
 alias ..='cd ..'
@@ -290,7 +291,6 @@ alias tls='tmux ls'
 alias tat='tmux attach -t'
 alias tns='tmux new-session -s'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 

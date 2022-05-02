@@ -5,7 +5,7 @@ plug.vim.old
 
 config/nvim/spell
 config/nvim/shada
-config/nvim/plugged
+config/nvim/plugin/
 config/nvim/autoload/plug.vim
 tmux.symlink/plugins/
 tmux.symlink/resurrect/
