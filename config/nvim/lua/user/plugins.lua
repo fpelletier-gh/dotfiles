@@ -49,7 +49,6 @@ return packer.startup(function(use)
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
 	use("akinsho/bufferline.nvim")
-	use("moll/vim-bbye")
 	use("nvim-lualine/lualine.nvim")
 	use("akinsho/toggleterm.nvim")
 	use("ahmedkhalf/project.nvim")
@@ -65,6 +64,37 @@ return packer.startup(function(use)
 	use("petertriho/nvim-scrollbar")
 	use("p00f/nvim-ts-rainbow")
 	use("rmagatti/auto-session")
+	use("folke/trouble.nvim")
+	use("stevearc/aerial.nvim")
+	use("tpope/vim-surround")
+	use("tpope/vim-repeat")
+	use("tpope/vim-unimpaired")
+	use("kosayoda/nvim-lightbulb")
+	use("beauwilliams/focus.nvim")
+	use("sudormrfbin/cheatsheet.nvim")
+	use({
+		"bennypowers/nvim-regexplainer",
+		requires = {
+			"MunifTanjim/nui.nvim",
+		},
+	})
+	use("lewis6991/spellsitter.nvim")
+	use({
+		"AckslD/nvim-neoclip.lua",
+		requires = {
+			{ "tami5/sqlite.lua", module = "sqlite" },
+		},
+	})
+	use("axieax/urlview.nvim")
+	use("famiu/bufdelete.nvim")
+	use("ggandor/leap.nvim")
+	use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+	use({
+		"junegunn/fzf",
+		run = function()
+			vim.fn["fzf#install"]()
+		end,
+	})
 
 	-- Colorschemes
 	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -75,6 +105,7 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-buffer") -- buffer completions
 	use("hrsh7th/cmp-path") -- path completions
 	use("hrsh7th/cmp-cmdline") -- cmdline completions
+	use("hrsh7th/cmp-nvim-lua") -- cmdline completions
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 	use("hrsh7th/cmp-nvim-lsp")
 
@@ -87,10 +118,17 @@ return packer.startup(function(use)
 	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
+	use("ray-x/lsp_signature.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	use("cljoly/telescope-repo.nvim")
+	use("airblade/vim-rooter")
+	use({
+		"benfowler/telescope-luasnip.nvim",
+		-- module = "telescope._extensions.luasnip", -- if you wish to lazy-load
+	})
 
 	-- Treesitter
 	use({
@@ -98,10 +136,12 @@ return packer.startup(function(use)
 		run = ":TSUpdate",
 	})
 	use("JoosepAlviste/nvim-ts-context-commentstring")
+	use("nvim-treesitter/nvim-treesitter-textobjects")
 
 	-- Git
 	use("lewis6991/gitsigns.nvim")
 	use("tpope/vim-fugitive")
+	use("sindrets/diffview.nvim")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

@@ -31,21 +31,18 @@ keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
--- -- Navigate buffers
--- keymap("n", "]b", ":bnext<CR>", opts)
--- keymap("n", "[b", ":bprevious<CR>", opts)
---
--- -- Navigate quickfix
--- keymap("n", "]c", ":cnext<CR>", opts)
--- keymap("n", "[c", ":cprevious<CR>", opts)
---
--- -- Navigate locationlist
--- keymap("n", "]l", ":lnext<CR>", opts)
--- keymap("n", "[l", ":lprevious<CR>", opts)
+-- -- Navigate tabs
+keymap("n", "]t", "gt", opts)
+keymap("n", "[t", "gT", opts)
 
--- Move text up and down
-keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
-keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+-- Move text
+keymap("n", "<A-j>", "<Esc>:m .+1<CR>", opts)
+keymap("n", "<A-k>", "<Esc>:m .-2<CR>", opts)
+keymap("n", "<A-h>", "<<", opts)
+keymap("n", "<A-l>", ">>", opts)
+
+keymap("n", "j", "gj", opts)
+keymap("n", "k", "gk", opts)
 
 -- Insert --
 -- Press jk fast to enter
@@ -64,8 +61,8 @@ keymap("v", "p", '"_dP', opts)
 -- Visual Block --
 -- Move text up and down
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
+keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Terminal --
@@ -74,4 +71,3 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
-
