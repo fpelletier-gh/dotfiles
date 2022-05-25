@@ -3,4 +3,4 @@ if not status_ok then
 	return
 end
 
-aerial.setup()
+aerial.setup({ width = 50 })

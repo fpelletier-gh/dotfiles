@@ -18,6 +18,37 @@ vim.g.maplocalleader = " "
 --   term_mode = "t",
 --   command_mode = "c",
 
+-- line completion - use more!
+-- inoremap <C-l> <C-x><C-l>
+keymap("i", "<c-l>", "<c-x><c-l>", { noremap = true })
+-- Vim command-line completion
+-- inoremap <C-v> <C-x><C-v>
+keymap("i", "<c-v>", "<c-x><c-v>", { noremap = true })
+
+-- Easy align
+keymap("n", "ga", "<Plug>(EasyAlign)", { noremap = false })
+keymap("v", "ga", "<Plug>(EasyAlign)", { noremap = false })
+
+-- Ts-hint-textobject mappings
+vim.cmd([[
+  omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
+  vnoremap <silent> m :lua require('tsht').nodes()<CR>
+]])
+
+-- Zoom
+keymap("n", "<leader>z", "<Plug>Zoom", { noremap = false })
+
+-- Terminal mapping
+vim.cmd([[
+  tnoremap <C-o> <C-\><C-n>
+]])
+
+-- treesitter-unit select maps
+keymap("x", "iu", ':lua require"treesitter-unit".select()<CR>', { noremap = true })
+keymap("x", "au", ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+keymap("o", "iu", ':<c-u>lua require"treesitter-unit".select()<CR>', { noremap = true })
+keymap("o", "au", ':<c-u>lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+
 -- Normal --
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -34,6 +65,10 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- -- Navigate tabs
 keymap("n", "]t", "gt", opts)
 keymap("n", "[t", "gT", opts)
+
+-- Navigate Gitsigns hunk
+keymap("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
+keymap("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
 
 -- Move text
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>", opts)

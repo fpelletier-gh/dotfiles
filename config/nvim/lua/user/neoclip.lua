@@ -11,7 +11,7 @@ neoclip.setup({
 	db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
 	filter = nil,
 	preview = true,
-	default_register = '"',
+	default_register = "+",
 	default_register_macros = "q",
 	enable_macro_history = true,
 	content_spec_column = false,

@@ -291,6 +291,11 @@ alias tls='tmux ls'
 alias tat='tmux attach -t'
 alias tns='tmux new-session -s'
 
+# Cheat.sh
+alias ch='cht.sh'
+alias js='cht.sh --shell js'
+alias ba='cht.sh --shell bash'
+
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 

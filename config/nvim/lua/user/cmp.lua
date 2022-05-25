@@ -8,12 +8,20 @@ if not snip_status_ok then
 	return
 end
 
+local lspkind_status_ok, lspkind = pcall(require, "lspkind")
+if not lspkind_status_ok then
+	return
+end
+
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
 	local col = vim.fn.col(".") - 1
 	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
+
+local types = require("cmp.types")
+local str = require("cmp.utils.str")
 
 --   פּ ﯟ   some other good icons
 local kind_icons = {
@@ -102,19 +110,21 @@ cmp.setup({
 			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
-				luasnip = "[Snippet]",
-				buffer = "[Buffer]",
+				luasnip = "[Snip]",
+				buffer = "[Buff]",
 				path = "[Path]",
 			})[entry.source.name]
 			return vim_item
 		end,
 	},
+
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
+		{ name = "cmdline" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
@@ -123,5 +133,43 @@ cmp.setup({
 	experimental = {
 		ghost_text = true,
 		native_menu = false,
+
+		-- fields = {
+		-- 	cmp.ItemField.Abbr,
+		-- 	cmp.ItemField.Kind,
+		-- 	cmp.ItemField.Menu,
+		-- },
+		-- format = lspkind.cmp_format({
+		-- 	mode = "symbol_text",
+		-- 	maxwidth = 60,
+		-- 	before = function(entry, vim_item)
+		-- 		vim_item.menu = ({
+		-- 			nvim_lsp = "ﲳ",
+		-- 			nvim_lua = "",
+		-- 			treesitter = "",
+		-- 			path = "ﱮ",
+		-- 			buffer = "﬘",
+		-- 			zsh = "",
+		-- 			luasnip = "",
+		-- 			spell = "暈",
+		-- 		})[entry.source.name]
+		--
+		-- 		-- Get the full snippet (and only keep first line)
+		-- 		local word = entry:get_insert_text()
+		-- 		if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
+		-- 			word = vim.lsp.util.parse_snippet(word)
+		-- 		end
+		-- 		word = str.oneline(word)
+		-- 		if
+		-- 			entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
+		-- 			and string.sub(vim_item.abbr, -1, -1) == "~"
+		-- 		then
+		-- 			word = word .. "~"
+		-- 		end
+		-- 		vim_item.abbr = word
+		--
+		-- 		return vim_item
+		-- 	end,
+		-- }),
 	},
 })

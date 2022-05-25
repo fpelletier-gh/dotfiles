@@ -45,6 +45,12 @@ function _LAZYGIT_TOGGLE()
 	lazygit:toggle()
 end
 
+local node = Terminal:new({ cmd = "node", hidden = true })
+
+function _NODE_TOGGLE()
+	node:toggle()
+end
+
 local npmrundev = Terminal:new({ cmd = "npm run dev", hidden = true })
 
 function _NPM_RUN_DEV_TOGGLE()
