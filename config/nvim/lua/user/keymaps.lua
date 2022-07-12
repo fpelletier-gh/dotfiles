@@ -29,6 +29,15 @@ keymap("i", "<c-v>", "<c-x><c-v>", { noremap = true })
 keymap("n", "ga", "<Plug>(EasyAlign)", { noremap = false })
 keymap("v", "ga", "<Plug>(EasyAlign)", { noremap = false })
 
+-- Inner-line around-line textobject
+vim.cmd([[
+    xnoremap <silent> il :<c-u>normal! g_v^<cr>
+    onoremap <silent> il :<c-u>normal! g_v^<cr>
+    vnoremap <silent> al :<c-u>normal! $v0<cr>
+    onoremap <silent> al :<c-u>normal! $v0<cr>
+
+]])
+
 -- Ts-hint-textobject mappings
 vim.cmd([[
   omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>

@@ -116,6 +116,14 @@ return packer.startup(function(use)
     let g:neoterm_default_mod='botright vertical'
     let g:neoterm_autoscroll=1
   ]])
+	use("wellle/targets.vim")
+	use("junegunn/vim-slash")
+	vim.cmd([[
+    if has('timers')
+      " Blink 2 times with 50ms interval
+      noremap <expr> <plug>(slash-after) 'zz'.slash#blink(2, 50)
+    endif
+  ]])
 
 	-- Colorschemes
 	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -141,7 +149,7 @@ return packer.startup(function(use)
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
 	use("onsails/lspkind-nvim")
-	use("ray-x/lsp_signature.nvim")
+	-- use("ray-x/lsp_signature.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
