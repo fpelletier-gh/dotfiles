@@ -38,6 +38,3 @@ if [[ "$SHELL" != "$zsh_path" ]]; then
 fi
 
 echo "Done. Reload your terminal."
-
-echo -e "\\n\\nInstalling nvim plugin"
-nvim +PlugInstall
