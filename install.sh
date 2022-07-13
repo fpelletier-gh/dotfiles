@@ -19,6 +19,10 @@ if ! command_exists zsh; then
 elif ! [[ $SHELL =~ .*zsh.* ]]; then
     echo "Configuring zsh as default shell"
     chsh -s "$(command -v zsh)"
+  if ! command_exists node; then
+    echo "Installing node js"
+    nvm install --lts
+  fi
 fi
 
 # Change the default shell to zsh

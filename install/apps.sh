@@ -27,6 +27,7 @@ sudo apt install python3-venv -y
 sudo apt install ripgrep -y
 sudo apt install silversearcher-ag -y
 sudo apt install tmux -y
+sudo apt install unzip -y
 sudo apt install vim -y
 sudo apt install wget -y
 sudo apt install zsh -y
@@ -39,11 +40,14 @@ echo -e "\\n\\nInstalling python for neovim"
 python3 -m pip install --upgrade pynvim
 
 echo -e "\\n\\nInstalling nodejs with nvm"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | sh &&
 nvm install --lts
 
 echo -e "\\n\\nInstalling tmux plugins manager"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+echo -e "\\n\\nInstalling Win32yank"
+cp ./win32yank.exe /home/francis/.local/bin
 
 echo -e "\\n\\nInstalling Fonts"
 sudo fc-cache -f -v
