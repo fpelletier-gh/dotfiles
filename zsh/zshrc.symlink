@@ -45,7 +45,7 @@ prepend_path /usr/local/opt/grep/libexec/gnubin
 prepend_path /usr/local/sbin
 prepend_path $DOTFILES/bin
 prepend_path $HOME/bin
-prepend_path /home/francis/.local/bin
+# prepend_path /home/francis/.local/bin
 prepend_path /mnt/c/users/Franc/Downloads
 prepend_path /home/francis/.cargo/bin
 # define the code directory
@@ -303,6 +303,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 PATH=~/.local/bin:$PATH
-source ~/.local/bin/virtualenvwrapper.sh
+# source ~/.local/bin/virtualenvwrapper.sh
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:~/go/bin
+export PATH=$PATH:~

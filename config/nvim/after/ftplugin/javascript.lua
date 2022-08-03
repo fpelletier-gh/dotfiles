@@ -27,41 +27,41 @@ vim.api.nvim_buf_set_keymap(0, "n", "t<C-l>", ":TestLast<CR>", { noremap = false
 -- LSP buf maps
 -- -- go to impl - not all LSPs implement this
 
-vim.api.nvim_buf_set_keymap(
-	0,
-	"n",
-	"<c-]>",
-	[[<cmd>lua require'telescope.builtin'.lsp_definitions()<CR>
-]],
-	{ noremap = true, silent = true }
-)
+-- vim.api.nvim_buf_set_keymap(
+-- 	0,
+-- 	"n",
+-- 	"<c-]>",
+-- 	[[<cmd>lua require'telescope.builtin'.lsp_definitions()<CR>
+-- ]],
+-- 	{ noremap = true, silent = true }
+-- )
 
-vim.api.nvim_buf_set_keymap(
-	0,
-	"n",
-	"gr",
-	[[<cmd>lua require'telescope.builtin'.lsp_references()<CR>
-]],
-	{ noremap = true, silent = true }
-)
+-- vim.api.nvim_buf_set_keymap(
+-- 	0,
+-- 	"n",
+-- 	"gr",
+-- 	[[<cmd>lua require'telescope.builtin'.lsp_references()<CR>
+-- ]],
+-- 	{ noremap = true, silent = true }
+-- )
 
-vim.api.nvim_buf_set_keymap(0, "n", "K", [[<cmd>lua vim.lsp.buf.hover()<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_buf_set_keymap(0, "n", "K", [[<cmd>lua vim.lsp.buf.hover()<CR>]], { noremap = true, silent = true })
 
-vim.api.nvim_buf_set_keymap(
-	0,
-	"n",
-	"<c-k>",
-	[[<cmd>lua vim.lsp.buf.signature_help()<CR>]],
-	{ noremap = true, silent = true }
-)
+-- vim.api.nvim_buf_set_keymap(
+-- 	0,
+-- 	"n",
+-- 	"<c-k>",
+-- 	[[<cmd>lua vim.lsp.buf.signature_help()<CR>]],
+-- 	{ noremap = true, silent = true }
+-- )
 
-vim.api.nvim_buf_set_keymap(
-	0,
-	"n",
-	"ge",
-	[[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]],
-	{ noremap = true, silent = true }
-)
+-- vim.api.nvim_buf_set_keymap(
+-- 	0,
+-- 	"n",
+-- 	"ge",
+-- 	[[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]],
+-- 	{ noremap = true, silent = true }
+-- )
 
 -- Goto previous/next diagnostic warning/error
 -- vim.api.nvim_buf_set_keymap(
@@ -122,12 +122,12 @@ vim.api.nvim_buf_set_keymap(0, "v", ",cl", [[cconsole.log(<c-r>"<esc>]], { norem
 -- 	false
 -- )
 
--- Show diagnostic float on CursorHold
-vim.api.nvim_create_augroup("JSLineDiagnostics", {})
-vim.api.nvim_create_autocmd(
-	"CursorHold",
-	{ command = "lua vim.diagnostic.open_float(0, {focusable = false, scope = 'line'})", group = "JSLineDiagnostics" }
-)
+-- -- Show diagnostic float on CursorHold
+-- vim.api.nvim_create_augroup("JSLineDiagnostics", {})
+-- vim.api.nvim_create_autocmd(
+-- 	"CursorHold",
+-- 	{ command = "lua vim.diagnostic.open_float(0, {focusable = false, scope = 'line'})", group = "JSLineDiagnostics" }
+-- )
 
 -- vim.api.nvim_exec(
 -- 	[[

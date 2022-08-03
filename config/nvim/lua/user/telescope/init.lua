@@ -111,6 +111,11 @@ telescope.setup({
 			selected_browser = "firefox",
 			url_open_command = "open",
 		},
+		aerial = {
+			-- Display symbols as <root>.<parent>.<symbol>
+			show_nesting = true,
+			filter_kind = { "Function", "Variable" },
+		},
 	},
 })
 
@@ -119,6 +124,8 @@ telescope.load_extension("repo")
 telescope.load_extension("neoclip")
 telescope.load_extension("urlview")
 telescope.load_extension("luasnip")
+
+telescope.load_extension("aerial")
 
 -- https://github.com/nvim-telescope/telescope-file-browser.nvim
 telescope.load_extension("file_browser")
@@ -137,6 +144,47 @@ vim.g["rooter_cd_cmd"] = "lcd"
 
 -- my telescopic customizations
 local M = {}
+
+-- requires repo extension
+function M.document_symbols_filtered()
+	local opts = {
+		symbols = {
+			"function",
+			"constant",
+		},
+	}
+	if vim.bo.filetype == "vim" then
+		opts.symbols = { "function" }
+	end
+	require("telescope.builtin").lsp_document_symbols(opts)
+end
+
+function M.dynamic_workspace_symbols_filtered()
+	local opts = {}
+	opts.file_ignore_patterns = {
+		"node_modules",
+	}
+	if vim.bo.filetype == "vim" then
+		opts.symbols = { "function" }
+	end
+	require("telescope.builtin").lsp_dynamic_workspace_symbols(opts)
+end
+
+function M.workspace_symbols_filtered()
+	local opts = {
+		-- symbols = {
+		-- 	"function",
+		-- 	"constant",
+		-- },
+	}
+	opts.file_ignore_patterns = {
+		"node_modules",
+	}
+	if vim.bo.filetype == "vim" then
+		opts.symbols = { "function" }
+	end
+	require("telescope.builtin").lsp_workspace_symbols(opts)
+end
 
 -- requires repo extension
 function M.repo_list()

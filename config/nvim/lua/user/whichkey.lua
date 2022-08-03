@@ -93,12 +93,11 @@ local mappings = {
 	["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 	["/"] = { "<Cmd>lua require'telescope.builtin'.current_buffer_fuzzy_find()<CR>", "Buffer FZF" },
 
-	b = {
-		name = "Buffer",
-		d = { "<cmd>Bdelete!<CR>", "Close Buffer" },
-		e = { "<cmd>FocusEqualise<CR>", "Equalise windows" },
-		s = { "<cmd>luafile %<CR>", "Source current buffer" },
-		t = { "<cmd>AerialToggle<CR>", "Symbol Tree" },
+	c = {
+		name = "Quickfix",
+		c = { ":cclose<CR>", "Close quickfix" },
+		o = { ":copen<CR>", "Open quickfix" },
+		l = { ":lopen<CR>", "Open location list" },
 	},
 
 	p = {
@@ -112,6 +111,7 @@ local mappings = {
 
 	f = {
 		name = "Find (telescope)",
+		a = { "<cmd>lua require'telescope.builtin'.builtin{}<CR>", "All Builtin" },
 		b = {
 			"<Cmd>lua require'telescope.builtin'.git_branches({prompt_title = ' ', results_title='Git Branches'})<CR>",
 			"Checkout branch",
@@ -121,7 +121,14 @@ local mappings = {
 		e = { "<Cmd>lua require'user.telescope'.find_configs()<CR>", "Find file in config dir" },
 		E = { "<Cmd>lua require'user.telescope'.file_explorer()<CR>", "File explorer ~" },
 		d = { "<Cmd>lua require'telescope.builtin'.diagnostics()<CR>", "Colorscheme" },
-		f = { "<Cmd>lua require'telescope.builtin'.live_grep()<CR>", "Live grep" },
+		f = {
+			"<Cmd>lua require'user.telescope'.document_symbols_filtered()<CR>",
+			"Filtered document symbols",
+		},
+		F = {
+			"<Cmd>lua require'user.telescope'.workspace_symbols_filtered()<CR>",
+			"Filtered Workspace symbols",
+		},
 		g = { "<cmd>Telescope repo list<cr>", "Git repository" },
 		h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
 		i = { "<Cmd>lua require'user.telescope'.project_files()<CR>", "Find Help" },
@@ -138,6 +145,10 @@ local mappings = {
 		R = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 		r = { "<cmd>Telescope registers<cr>", "Registers" },
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+		w = {
+			"<Cmd>lua require'user.telescope'.dynamic_workspace_symbols_filtered()<CR>",
+			"Filtered dynamic Workspace symbols",
+		},
 	},
 
 	g = {
@@ -214,6 +225,19 @@ local mappings = {
 		p = { "<Cmd>lua require'user.telescope'.search_projects()<CR>", "Projects" },
 		r = { "<Cmd>lua require'telescope.builtin'.live_grep()<CR>", "Live grep" },
 		z = { "<Cmd>lua require'user.telescope'.search_zsh_config()<CR>", "Zsh config" },
+	},
+
+	s = {
+		name = "LspSaga",
+		a = { ":Lspsaga code_action<CR>", "Code action" },
+		A = { ":<C-U>Lspsaga range_code_action<CR>", "Range code action" },
+		d = { "<cmd>lua require'lspsaga.diagnostic'.show_cursor_diagnostics()<CR>", "Cursor diagnostic" },
+		j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Diagnostic jump next" },
+		k = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "Diagnostic jump prev" },
+		l = { "<cmd>Lspsaga show_line_diagnostics<cr>", "Show line diagnostics" },
+		p = { ":Lspsaga preview_definition<CR>", "Preview definition" },
+		r = { ":Lspsaga rename<CR>", "Rename" },
+		s = { "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", "Word definition and reference" },
 	},
 
 	t = {

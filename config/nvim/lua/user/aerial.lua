@@ -3,4 +3,4 @@ if not status_ok then
 	return
 end
 
-aerial.setup({ width = 50 })
+aerial.setup({ width = 50, filter_kind = { "Function", "Constant", "Variable" } })

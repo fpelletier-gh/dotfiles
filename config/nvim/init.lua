@@ -12,7 +12,7 @@ require("user.gitsigns")
 require("user.nvim-tree")
 require("user.nvim-ts-autotag")
 require("user.trouble")
-require("user.lightbulb")
+-- require("user.lightbulb")
 require("user.cheatsheet")
 -- require("user.focus")
 require("user.stabilize")
@@ -38,3 +38,15 @@ require("user.indentline")
 require("user.alpha")
 require("user.whichkey")
 require("user.autocommands")
+require("user.lspsaga")
+
+-- vim.cmd([[
+--   augroup RegStarChange
+--     autocmd!
+--     autocmd RegStarChange  * :lua require('neoclip.storage').insert({regtype=regtype,contents=regcontents,filetype=vim.bo.filetype}, 'yanks')
+--   augroup end
+-- ]])
+--
+-- vim.cmd([[
+-- autocmd REGCHANGED * :lua require('neoclip.storage').insert({regtype=regtype,contents=regcontents,filetype=vim.bo.filetype}, 'yanks')
+-- ]])

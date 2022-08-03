@@ -76,7 +76,7 @@ return packer.startup(function(use)
 	use("andymass/vim-matchup")
 	use("folke/lua-dev.nvim")
 	use("luukvbaal/stabilize.nvim")
-	use("kosayoda/nvim-lightbulb")
+	-- use("kosayoda/nvim-lightbulb")
 	-- use("beauwilliams/focus.nvim")
 	use("sudormrfbin/cheatsheet.nvim")
 	use({
@@ -106,11 +106,11 @@ return packer.startup(function(use)
 		"klen/nvim-test",
 		config = function() end,
 	})
-	require("packer").use({
+	use({
 		"weilbith/nvim-code-action-menu",
 		cmd = "CodeActionMenu",
 	})
-	use("dbeniamine/cheat.sh-vim")
+	-- use("dbeniamine/cheat.sh-vim")
 	use("kassio/neoterm")
 	vim.cmd([[
     let g:neoterm_default_mod='botright vertical'
@@ -124,6 +124,7 @@ return packer.startup(function(use)
       noremap <expr> <plug>(slash-after) 'zz'.slash#blink(2, 50)
     endif
   ]])
+	use("RRethy/nvim-treesitter-textsubjects")
 
 	-- Colorschemes
 	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -149,6 +150,7 @@ return packer.startup(function(use)
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
 	use("onsails/lspkind-nvim")
+	use({ "kkharji/lspsaga.nvim" })
 	-- use("ray-x/lsp_signature.nvim")
 
 	-- Telescope
