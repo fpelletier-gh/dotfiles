@@ -295,7 +295,7 @@ alias tns='tmux new-session -s'
 alias ch='cht.sh'
 alias js='cht.sh --shell js'
 alias ba='cht.sh --shell bash'
-
+alias open='wslview'
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 
@@ -307,3 +307,4 @@ PATH=~/.local/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:~/go/bin
 export PATH=$PATH:~
+export BROWSER=wslview
