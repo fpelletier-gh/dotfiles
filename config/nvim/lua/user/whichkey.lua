@@ -140,8 +140,9 @@ local mappings = {
 		N = { "<Cmd>lua require'user.telescope'.browse_notes()<CR>", "Web dev Notes" },
 		M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
 		p = { "<cmd>Telescope neoclip<cr>", "Neoclip" },
-		s = { "<cmd>Telescope luasnip<cr>", "Snippets" },
-		S = { "<cmd>Cheatsheet<cr>", "Snippets" },
+		s = { "<Cmd>lua require'telescope.builtin'.spell_suggest()<CR>", "Spell suggest" },
+		S = { "<cmd>Telescope luasnip<cr>", "Snippets" },
+		--[[ S = { "<cmd>Cheatsheet<cr>", "Snippets" }, ]]
 		R = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 		r = { "<cmd>Telescope registers<cr>", "Registers" },
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
@@ -185,6 +186,17 @@ local mappings = {
 		},
 	},
 
+	j = {
+		name = "Test",
+		s = { ":TestSuite<CR>", "TestSuite" },
+		f = { ":TestFile<CR>", "TestFile" },
+		e = { ":TestEdit<CR>", "Edit tests for current file" },
+		n = { ":TestNearest<CR>", "TestNearest" },
+		l = { ":TestLast<CR>", "TestLast" },
+		v = { ":TestVisit<CR>", "Open last run test un current buffer" },
+		i = { ":TestInfo<CR>", "Show info about the plugin" },
+	},
+
 	l = {
 		name = "LSP",
 		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
@@ -217,13 +229,22 @@ local mappings = {
 		},
 	},
 
+	m = {
+		name = "Markdown",
+		p = { ":MarkdownPreview<cr>", "Preview" },
+		t = { ":GenTocGFM<cr>", "Generate TOC (GFM)" },
+	},
+
 	r = {
 		name = "Ripgrep",
+		b = { ":Telescope builtin<CR>", "Search builtin" },
 		c = { "<Cmd>lua require'user.telescope'.search_nvim_config()<CR>", "Neovim config" },
 		n = { "<Cmd>lua require'user.telescope'.search_notes()<CR>", "Notes" },
+		N = { ":Telescope notify<CR>", "Search notifications" },
 		o = { "<Cmd>lua require'user.telescope'.search_old_nvim_config()<CR>", "Old Neovim config" },
 		p = { "<Cmd>lua require'user.telescope'.search_projects()<CR>", "Projects" },
 		r = { "<Cmd>lua require'telescope.builtin'.live_grep()<CR>", "Live grep" },
+		s = { "<Cmd>lua require'telescope.builtin'.grep_string()<CR>", "Grep string under cursor" },
 		z = { "<Cmd>lua require'user.telescope'.search_zsh_config()<CR>", "Zsh config" },
 	},
 
@@ -245,19 +266,19 @@ local mappings = {
 		b = { ":<c-u>exec v:count.'T npm run build'<cr>", "npm run build" },
 		c = { ":TcloseAll<cr>", "Close all terminal window" },
 		C = { ":TcloseAll!<cr>", "Delete all terminal buffer" },
+		e = { "<cmd>TermExec cmd='./manage.py runserver'<cr>", "Django runserver" },
 		j = { ":belowright Tnew<cr><C-w>ji", "New terminal below" },
 		k = { ":<c-u>exec v:count.'Tkill'<cr>", "Tkill" },
 		l = { ":Tnew<cr><C-w>l<C-w>li", "New terminal right" },
-		o = { ":<c-u>exec v:count.'Topen'<cr>", "Topen" },
-		r = { ":<c-u>exec v:count.'T npm run dev'<cr>", "npm run dev" },
-		t = { ":tabnew<cr>", "New tab" },
-		-- b = { "<cmd>lua _NPM_RUN_BUILD_TOGGLE()<cr>", "Npm run build" },
+		-- o = { ":<c-u>exec v:count.'Topen'<cr>", "Topen" },
+		-- r = { ":<c-u>exec v:count.'T npm run dev'<cr>", "npm run dev" },
+		o = { "<cmd>ToggleTerm<cr>", "ToggleTerm toggle" },
+		p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python REPL" },
 		-- h = { "<cmd>TSHighlightCapturesUnderCursor<cr>", "Treesitter Hilight under cursor" },
-		-- j = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-		-- l = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
 		-- n = { "<cmd>_NODEMON_TOGGLE()<cr>", "Node %" },
 		-- N = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node repl" },
-		-- r = { "<cmd>lua _NPM_RUN_DEV_TOGGLE()<cr>", "Npm run dev" },
+		r = { "<cmd>lua _NPM_RUN_DEV_TOGGLE()<cr>", "Npm run dev toggle" },
+		t = { ":tabnew<cr>", "New tab" },
 	},
 }
 
