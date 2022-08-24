@@ -48,9 +48,6 @@ vim.cmd([[
   vnoremap <silent> m :lua require('tsht').nodes()<CR>
 ]])
 
--- Zoom
-keymap("n", "<leader>z", "<Plug>Zoom", { noremap = false })
-
 -- Terminal mapping
 function _G.set_terminal_keymaps()
 	local options = { buffer = 0 }

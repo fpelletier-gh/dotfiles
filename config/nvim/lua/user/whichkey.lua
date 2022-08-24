@@ -91,6 +91,7 @@ local mappings = {
 	},
 	["F"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
 	["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+	["z"] = { "<cmd>tab split<CR>", "Zoom open current window in new tab" },
 	["/"] = { "<Cmd>lua require'telescope.builtin'.current_buffer_fuzzy_find()<CR>", "Buffer FZF" },
 
 	c = {
