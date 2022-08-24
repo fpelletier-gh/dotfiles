@@ -124,8 +124,8 @@ telescope.load_extension("repo")
 telescope.load_extension("neoclip")
 telescope.load_extension("urlview")
 telescope.load_extension("luasnip")
-
 telescope.load_extension("aerial")
+telescope.load_extension("notify")
 
 -- https://github.com/nvim-telescope/telescope-file-browser.nvim
 telescope.load_extension("file_browser")
