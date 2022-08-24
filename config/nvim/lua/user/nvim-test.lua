@@ -7,16 +7,20 @@ nvimtest.setup({
 	commands_create = true, -- create commands (TestFile, TestLast, ...)
 	silent = false, -- less notifications
 	run = true, -- run test commands
-	term = "terminal", -- a terminal to run (terminal|toggleterm)
+	term = "toggleterm", -- a terminal to run (terminal|toggleterm)
 	termOpts = {
-		direction = "vertical", -- terminal's direction (horizontal|vertical|float)
-		width = 86, -- terminal's width (for vertical|float)
-		height = 24, -- terminal's height (for horizontal|float)
+		direction = "float", -- terminal's direction (horizontal|vertical|float)
+		-- width = 86, -- terminal's width (for vertical|float)
+		-- height = 24, -- terminal's height (for horizontal|float)
 		go_back = false, -- return focus to original window after executing
 		stopinsert = false, -- exit from insert mode
 	},
 	runners = {
 		javascript = "nvim-test.runners.jest",
+		javacriptreact = "nvim-test.runners.jest",
 		lua = "nvim-test.runners.busted",
+		python = "nvim-test.runners.pytest",
+		typescript = "nvim-test.runners.jest",
+		typescriptreact = "nvim-test.runners.jest",
 	},
 })
