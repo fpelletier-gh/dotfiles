@@ -50,7 +50,7 @@ return packer.startup(function(use)
 	use("kyazdani42/nvim-tree.lua")
 	use("akinsho/bufferline.nvim")
 	use("nvim-lualine/lualine.nvim")
-	-- use("akinsho/toggleterm.nvim")
+	use("akinsho/toggleterm.nvim")
 	use("ahmedkhalf/project.nvim")
 	use("lewis6991/impatient.nvim")
 	use("lukas-reineke/indent-blankline.nvim")
@@ -115,6 +115,7 @@ return packer.startup(function(use)
 	vim.cmd([[
     let g:neoterm_default_mod='botright vertical'
     let g:neoterm_autoscroll=1
+    let g:neoterm_autoinsert=1
   ]])
 	use("wellle/targets.vim")
 	use("junegunn/vim-slash")
@@ -125,6 +126,12 @@ return packer.startup(function(use)
     endif
   ]])
 	use("RRethy/nvim-treesitter-textsubjects")
+	use("nkakouros-original/numbers.nvim")
+	use("davidgranstrom/nvim-markdown-preview")
+	vim.cmd([[
+  let g:nvim_markdown_preview_theme = 'github'
+  ]])
+	use("mzlogin/vim-markdown-toc")
 
 	-- Colorschemes
 	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -164,8 +171,14 @@ return packer.startup(function(use)
 	})
 	use({ "nvim-telescope/telescope-file-browser.nvim" })
 	use({ "nvim-telescope/telescope-ui-select.nvim" })
-	use("dhruvmanila/telescope-bookmarks.nvim")
 	use("nvim-telescope/telescope-github.nvim")
+	use({
+		"dhruvmanila/telescope-bookmarks.nvim",
+		tag = "*",
+		requires = {
+			"kkharji/sqlite.lua",
+		},
+	})
 
 	-- Treesitter
 	use({
