@@ -29,7 +29,7 @@ nvim_tree.setup({ -- BEGIN_DEFAULT_OPTS
 		side = "left",
 		preserve_window_proportions = false,
 		number = false,
-		relativenumber = false,
+		relativenumber = true,
 		signcolumn = "yes",
 		mappings = {
 			custom_only = false,
@@ -84,7 +84,7 @@ nvim_tree.setup({ -- BEGIN_DEFAULT_OPTS
 	},
 	git = {
 		enable = true,
-		ignore = true,
+		ignore = false,
 		timeout = 400,
 	},
 	actions = {
