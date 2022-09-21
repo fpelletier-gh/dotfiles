@@ -4,10 +4,10 @@ vim.opt_local.linebreak = true
 vim.opt_local.spell = false
 
 -- treesitter Folding
-vim.opt_local.foldmethod = "expr"
-vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt_local.foldnestmax = 3
-vim.opt_local.foldlevel = 1
+--[[ vim.opt_local.foldmethod = "expr" ]]
+--[[ vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()" ]]
+--[[ vim.opt_local.foldnestmax = 3 ]]
+--[[ vim.opt_local.foldlevel = 1 ]]
 
 -- ** Key Maps ** --
 -- *** Test related - Jest **
