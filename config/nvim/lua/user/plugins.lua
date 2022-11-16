@@ -51,82 +51,16 @@ return packer.startup(function(use)
 	use("akinsho/bufferline.nvim")
 	use("nvim-lualine/lualine.nvim")
 	use("akinsho/toggleterm.nvim")
-	use("ahmedkhalf/project.nvim")
-	use("lewis6991/impatient.nvim")
-	use("lukas-reineke/indent-blankline.nvim")
-	use("goolord/alpha-nvim")
-	use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
+	use("ThePrimeagen/harpoon")
+	use("ThePrimeagen/git-worktree.nvim")
+	use("mbbill/undotree")
+	use("simrat39/symbols-outline.nvim")
 	use("folke/which-key.nvim")
 	use("rcarriga/nvim-notify")
-	use("stevearc/dressing.nvim")
-	use("karb94/neoscroll.nvim")
 	use("windwp/nvim-ts-autotag")
-	use("petertriho/nvim-scrollbar")
-	use("p00f/nvim-ts-rainbow")
-	use("rmagatti/auto-session")
-	use("folke/trouble.nvim")
-	use("stevearc/aerial.nvim")
 	use("tpope/vim-surround")
-	use("tpope/vim-repeat")
-	use("tpope/vim-unimpaired")
-	use("tpope/vim-eunuch")
-	use("tpope/vim-abolish")
 	use("junegunn/vim-easy-align")
-	use("pbrisbin/vim-mkdir")
-	use("andymass/vim-matchup")
-	use("folke/lua-dev.nvim")
-	use("luukvbaal/stabilize.nvim")
-	-- use("kosayoda/nvim-lightbulb")
-	-- use("beauwilliams/focus.nvim")
-	use("sudormrfbin/cheatsheet.nvim")
-	use({
-		"bennypowers/nvim-regexplainer",
-		requires = {
-			"MunifTanjim/nui.nvim",
-		},
-	})
-	use("lewis6991/spellsitter.nvim")
-	use({
-		"AckslD/nvim-neoclip.lua",
-		requires = {
-			{ "tami5/sqlite.lua", module = "sqlite" },
-		},
-	})
-	use("axieax/urlview.nvim")
-	use("famiu/bufdelete.nvim")
-	use("ggandor/leap.nvim")
-	use({ "kevinhwang91/nvim-bqf", ft = "qf" })
-	use({
-		"junegunn/fzf",
-		run = function()
-			vim.fn["fzf#install"]()
-		end,
-	})
-	use({
-		"klen/nvim-test",
-		config = function() end,
-	})
-	use({
-		"weilbith/nvim-code-action-menu",
-		cmd = "CodeActionMenu",
-	})
-	-- use("dbeniamine/cheat.sh-vim")
-	use("kassio/neoterm")
-	vim.cmd([[
-    let g:neoterm_default_mod='botright vertical'
-    let g:neoterm_autoscroll=1
-    let g:neoterm_autoinsert=1
-  ]])
-	use("wellle/targets.vim")
-	use("junegunn/vim-slash")
-	vim.cmd([[
-    if has('timers')
-      " Blink 2 times with 50ms interval
-      noremap <expr> <plug>(slash-after) 'zz'.slash#blink(2, 50)
-    endif
-  ]])
-	use("RRethy/nvim-treesitter-textsubjects")
-	use("nkakouros-original/numbers.nvim")
+	use("vim-test/vim-test")
 	use("davidgranstrom/nvim-markdown-preview")
 	vim.cmd([[
   let g:nvim_markdown_preview_theme = 'github'
@@ -134,18 +68,16 @@ return packer.startup(function(use)
 	use("mzlogin/vim-markdown-toc")
 
 	-- Colorschemes
-	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
 	use("lunarvim/darkplus.nvim")
 
 	-- cmp plugins
 	use("hrsh7th/nvim-cmp") -- The completion plugin
 	use("hrsh7th/cmp-buffer") -- buffer completions
 	use("hrsh7th/cmp-path") -- path completions
-	use("hrsh7th/cmp-cmdline") -- cmdline completions
 	use("hrsh7th/cmp-nvim-lua") -- cmdline completions
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 	use("hrsh7th/cmp-nvim-lsp")
-	use("f3fora/cmp-spell")
+	use("tzachar/cmp-tabnine", { run = "./install.sh" })
 
 	-- snippets
 	use("L3MON4D3/LuaSnip") --snippet engine
@@ -157,28 +89,14 @@ return packer.startup(function(use)
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
 	use("onsails/lspkind-nvim")
-	use({ "kkharji/lspsaga.nvim" })
-	-- use("ray-x/lsp_signature.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use("cljoly/telescope-repo.nvim")
-	use("airblade/vim-rooter")
 	use({
 		"benfowler/telescope-luasnip.nvim",
-		-- module = "telescope._extensions.luasnip", -- if you wish to lazy-load
 	})
 	use({ "nvim-telescope/telescope-file-browser.nvim" })
-	use({ "nvim-telescope/telescope-ui-select.nvim" })
-	use("nvim-telescope/telescope-github.nvim")
-	use({
-		"dhruvmanila/telescope-bookmarks.nvim",
-		tag = "*",
-		requires = {
-			"kkharji/sqlite.lua",
-		},
-	})
 
 	-- Treesitter
 	use({
@@ -186,11 +104,8 @@ return packer.startup(function(use)
 		run = ":TSUpdate",
 	})
 	use("JoosepAlviste/nvim-ts-context-commentstring")
-	use("nvim-treesitter/nvim-treesitter-textobjects")
-	use("nvim-treesitter/nvim-treesitter-refactor")
+	use("romgrk/nvim-treesitter-context")
 	use("nvim-treesitter/playground")
-	use("David-Kunz/treesitter-unit")
-	use("mfussenegger/nvim-ts-hint-textobject")
 
 	-- Git
 	use("lewis6991/gitsigns.nvim")

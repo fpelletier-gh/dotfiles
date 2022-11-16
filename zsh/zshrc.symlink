@@ -28,7 +28,7 @@ COLOR_WHITE="\e[1;37m"
 COLOR_NONE="\e[0m"
 
 # if [ -z "$TMUX" ]; then
-    export TERM=xterm-256color
+    # export TERM=xterm-256color
 # else
     # export TERM=tmux-256color
 # fi
@@ -45,6 +45,7 @@ prepend_path /usr/local/opt/grep/libexec/gnubin
 prepend_path /usr/local/sbin
 prepend_path $DOTFILES/bin
 prepend_path $HOME/bin
+prepend_path $HOME/.local/scripts
 # prepend_path /home/francis/.local/bin
 prepend_path /mnt/c/users/Franc/Downloads
 prepend_path /home/francis/.cargo/bin
@@ -76,13 +77,13 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt COMPLETE_ALIASES
 
 # make terminal command navigation sane again
-bindkey '^[^[[D' backward-word
-bindkey '^[^[[C' forward-word
-bindkey '^[[5D' beginning-of-line
-bindkey '^[[5C' end-of-line
-bindkey '^[[3~' delete-char
-bindkey '^?' backward-delete-char
-bindkey "^A" vi-beginning-of-line
+# bindkey '^[^[[D' backward-word
+# bindkey '^[^[[C' forward-word
+# bindkey '^[[5D' beginning-of-line
+# bindkey '^[[5C' end-of-line
+# bindkey '^[[3~' delete-char
+# bindkey '^?' backward-delete-char
+# bindkey "^A" vi-beginning-of-line
 
 # matches case insensitive for lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -132,8 +133,10 @@ export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 
 # [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 
 ########################################################
@@ -204,7 +207,7 @@ if type hub > /dev/null 2>&1; then
 fi
 
 # move to next word with ctrl-F
-bindkey -M viins "^F" vi-forward-word
+# bindkey -M viins "^F" vi-forward-word
 # Move to end of line with ctrl-E
 bindkey -M viins "^E" vi-add-eol
 
@@ -248,6 +251,8 @@ if [[ -n $NVIM_LISTEN_ADDRESS ]]; then
    alias nvim= 'echo "No nesting!"' 
  fi 
 fi
+
+bindkey -s ^f "tmux-sessionizer\n"
 
 # use nvim, but don't make me think about it
 alias vi="nvim"

@@ -79,7 +79,6 @@ local opts = {
 }
 
 local mappings = {
-	["a"] = { "<cmd>Alpha<cr>", "Alpha" },
 	["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
 	["w"] = { "<cmd>w<CR>", "Save" },
 	["q"] = { "<cmd>q<CR>", "Quit" },
@@ -90,24 +89,14 @@ local mappings = {
 		"Find files",
 	},
 	["F"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
-	["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 	["z"] = { "<cmd>tab split<CR>", "Zoom open current window in new tab" },
 	["/"] = { "<Cmd>lua require'telescope.builtin'.current_buffer_fuzzy_find()<CR>", "Buffer FZF" },
 
 	c = {
 		name = "Quickfix",
-		c = { ":cclose<CR>", "Close quickfix" },
+		c = { ":cclose | lclose<CR>", "Close quickfix" },
 		o = { ":copen<CR>", "Open quickfix" },
 		l = { ":lopen<CR>", "Open location list" },
-	},
-
-	p = {
-		name = "Packer",
-		c = { "<cmd>PackerCompile<cr>", "Compile" },
-		i = { "<cmd>PackerInstall<cr>", "Install" },
-		s = { "<cmd>PackerSync<cr>", "Sync" },
-		S = { "<cmd>PackerStatus<cr>", "Status" },
-		u = { "<cmd>PackerUpdate<cr>", "Update" },
 	},
 
 	f = {
@@ -131,7 +120,8 @@ local mappings = {
 			"Filtered Workspace symbols",
 		},
 		g = { "<cmd>Telescope repo list<cr>", "Git repository" },
-		h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+		h = { ":Telescope harpoon marks<cr>", "Find harpoon marks" },
+		H = { "<cmd>Telescope help_tags<cr>", "Find Help" },
 		i = { "<Cmd>lua require'user.telescope'.project_files()<CR>", "Find Help" },
 		l = {
 			"<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>",
@@ -140,10 +130,8 @@ local mappings = {
 		n = { "<Cmd>lua require'user.telescope'.find_configs()<CR>", "Nvim config" },
 		N = { "<Cmd>lua require'user.telescope'.browse_notes()<CR>", "Web dev Notes" },
 		M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-		p = { "<cmd>Telescope neoclip<cr>", "Neoclip" },
 		s = { "<Cmd>lua require'telescope.builtin'.spell_suggest()<CR>", "Spell suggest" },
 		S = { "<cmd>Telescope luasnip<cr>", "Snippets" },
-		--[[ S = { "<cmd>Cheatsheet<cr>", "Snippets" }, ]]
 		R = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 		r = { "<cmd>Telescope registers<cr>", "Registers" },
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
@@ -191,7 +179,6 @@ local mappings = {
 		name = "Test",
 		s = { ":TestSuite<CR>", "TestSuite" },
 		f = { ":TestFile<CR>", "TestFile" },
-		e = { ":TestEdit<CR>", "Edit tests for current file" },
 		n = { ":TestNearest<CR>", "TestNearest" },
 		l = { ":TestLast<CR>", "TestLast" },
 		v = { ":TestVisit<CR>", "Open last run test un current buffer" },
@@ -209,7 +196,7 @@ local mappings = {
 			"<cmd>tabnew | TroubleToggle<cr>",
 			"Workspace Diagnostics",
 		},
-		f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+		f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
 		i = { "<cmd>LspInfo<cr>", "Info" },
 		I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
 		j = {
@@ -240,46 +227,11 @@ local mappings = {
 		name = "Ripgrep",
 		b = { ":Telescope builtin<CR>", "Search builtin" },
 		c = { "<Cmd>lua require'user.telescope'.search_nvim_config()<CR>", "Neovim config" },
-		n = { "<Cmd>lua require'user.telescope'.search_notes()<CR>", "Notes" },
 		N = { ":Telescope notify<CR>", "Search notifications" },
 		o = { "<Cmd>lua require'user.telescope'.search_old_nvim_config()<CR>", "Old Neovim config" },
-		p = { "<Cmd>lua require'user.telescope'.search_projects()<CR>", "Projects" },
 		r = { "<Cmd>lua require'telescope.builtin'.live_grep()<CR>", "Live grep" },
 		s = { "<Cmd>lua require'telescope.builtin'.grep_string()<CR>", "Grep string under cursor" },
 		z = { "<Cmd>lua require'user.telescope'.search_zsh_config()<CR>", "Zsh config" },
-	},
-
-	s = {
-		name = "LspSaga",
-		a = { ":Lspsaga code_action<CR>", "Code action" },
-		A = { ":<C-U>Lspsaga range_code_action<CR>", "Range code action" },
-		d = { "<cmd>lua require'lspsaga.diagnostic'.show_cursor_diagnostics()<CR>", "Cursor diagnostic" },
-		j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Diagnostic jump next" },
-		k = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "Diagnostic jump prev" },
-		l = { "<cmd>Lspsaga show_line_diagnostics<cr>", "Show line diagnostics" },
-		p = { ":Lspsaga preview_definition<CR>", "Preview definition" },
-		r = { ":Lspsaga rename<CR>", "Rename" },
-		s = { "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", "Word definition and reference" },
-	},
-
-	t = {
-		name = "Terminal",
-		b = { ":<c-u>exec v:count.'T npm run build'<cr>", "npm run build" },
-		c = { ":TcloseAll<cr>", "Close all terminal window" },
-		C = { ":TcloseAll!<cr>", "Delete all terminal buffer" },
-		e = { "<cmd>TermExec cmd='./manage.py runserver'<cr>", "Django runserver" },
-		j = { ":belowright Tnew<cr><C-w>ji", "New terminal below" },
-		k = { ":<c-u>exec v:count.'Tkill'<cr>", "Tkill" },
-		l = { ":Tnew<cr><C-w>l<C-w>li", "New terminal right" },
-		-- o = { ":<c-u>exec v:count.'Topen'<cr>", "Topen" },
-		-- r = { ":<c-u>exec v:count.'T npm run dev'<cr>", "npm run dev" },
-		o = { "<cmd>ToggleTerm<cr>", "ToggleTerm toggle" },
-		p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python REPL" },
-		-- h = { "<cmd>TSHighlightCapturesUnderCursor<cr>", "Treesitter Hilight under cursor" },
-		-- n = { "<cmd>_NODEMON_TOGGLE()<cr>", "Node %" },
-		-- N = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node repl" },
-		r = { "<cmd>lua _NPM_RUN_DEV_TOGGLE()<cr>", "Npm run dev toggle" },
-		t = { ":tabnew<cr>", "New tab" },
 	},
 }
 

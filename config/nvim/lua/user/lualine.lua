@@ -7,8 +7,8 @@ lualine.setup({
 	options = {
 		icons_enabled = true,
 		theme = "ayu_mirage",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
+		component_separators = "",
+		section_separators = "",
 		disabled_filetypes = {},
 		always_divide_middle = true,
 		globalstatus = false,
@@ -18,7 +18,7 @@ lualine.setup({
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { "filename" },
 		lualine_x = { "filetype" },
-		lualine_y = { "aerial" },
+		lualine_y = {},
 		lualine_z = {},
 	},
 	inactive_sections = {
@@ -29,6 +29,9 @@ lualine.setup({
 		lualine_y = {},
 		lualine_z = {},
 	},
-	tabline = {},
+	tabline = {
+		lualine_a = { { "tabs", max_length = 100, mode = 1, separator = "" } },
+		lualine_z = { 'vim.fn.expand("%")' },
+	},
 	extensions = {},
 })
