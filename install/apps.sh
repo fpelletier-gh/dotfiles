@@ -1,70 +1,75 @@
 #!/usr/bin/env bash
 
-echo -e "\\n\\nUpdating and Upgrading"
-sudo apt update && sudo apt upgrade -y
+echo -e "\\n\\nUpdating and Upgrading\\n"
+sudo apt update -y && sudo apt upgrade -y
 
-echo -e "\\n\\nAdding neovim nightly PPA"
+echo -e "\\n\\nAdding neovim nightly PPA\\n"
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
 
-echo -e "\\n\\nAdding Github cli"
+echo -e "\\n\\nAdding Github cli\\n"
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
 sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 sudo apt update
 
-echo -e "\\n\\nInstalling application"
+echo -e "\\n\\nInstalling application\\n"
 
-sudo apt install ack -y
-sudo apt install bat -y
-sudo apt install cargo -y
-sudo apt install cmake -y
-sudo apt install curl -y
-sudo apt install exuberant-ctags -y
-sudo apt install fzf -y
-sudo apt install gh -y
-sudo apt install grep -y
-sudo apt install highlight -y
-sudo apt install htop -y
-sudo apt install neofetch -y
-sudo apt install neovim -y
-sudo apt install ngrep -y
-sudo apt install python3 -y
-sudo apt install python3-pip -y
-sudo apt install python3-venv -y
-sudo apt install ripgrep -y
-sudo apt install silversearcher-ag -y
-sudo apt install tmux -y
-sudo apt install unzip -y
-sudo apt install vim -y
-sudo apt install wget -y
-sudo apt install zsh -y
+declare -a apt_list=(
+"ack"
+"bat"
+"cargo"
+"cat"
+"cmake"
+"curl"
+"fzf"
+"gh"
+"grep"
+"highlight"
+"htop"
+"neofetch"
+"neovim"
+"ngrep"
+"python3"
+"python3-pip"
+"python3-venv"
+"ripgrep"
+"silversearcher-ag"
+"tabnine"
+"tmux"
+"unzip"
+"vim"
+"wget"
+"zsh"
+)
 
-echo -e "\\n\\nInstalling Z"
+for apt in "${apt_list[@]}"
+do
+   echo -e "\\n\\nInstalling $apt\\n"
+   sudo apt install $apt -y
+done
+
+echo -e "\\n\\nInstalling Z\\n"
 git clone https://github.com/rupa/z.git ~/z
 touch ~/.z
 
-echo -e "\\n\\nInstalling python for neovim"
+echo -e "\\n\\nInstalling python for neovim\\n"
 python3 -m pip install --upgrade pynvim
 
-echo -e "\\n\\nInstalling nodejs with nvm"
+echo -e "\\n\\nInstalling nodejs with nvm\\n"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | sh &&
 nvm install --lts
 
-echo -e "\\n\\nInstalling tmux plugins manager"
+echo -e "\\n\\nInstalling tmux plugins manager\\n"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-echo -e "\\n\\nInstalling Win32yank"
+echo -e "\\n\\nInstalling Win32yank\\n"
 cp ./win32yank.exe /home/francis/.local/bin
 
-echo -e "\\n\\nInstalling Fonts"
-sudo fc-cache -f -v
+if ! [[ $(uname -r) =~ WSL ]]; then
+  echo -e "\\n\\nInstalling Fonts\\n"
+  sudo fc-cache -f -v
+fi
 
-echo -e "\\n\\nInstalling Stylua"
+echo -e "\\n\\nInstalling Stylua\\n"
 cargo install stylua
-
-# echo -e "\\n\\nInstalling virtualenvwrapper"
-# pip3 install virtualenvwrapper
-# export WORKON_HOME=~/Envs
-# mkdir -p $WORKON_HOME
-# source /home/francis/.local/bin/virtualenvwrapper.sh
