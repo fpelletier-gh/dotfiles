@@ -55,20 +55,6 @@ telescope.load_extension("notify")
 
 local M = {}
 
--- requires repo extension
-function M.document_symbols_filtered()
-	local opts = {
-		symbols = {
-			"function",
-			"constant",
-		},
-	}
-	if vim.bo.filetype == "vim" then
-		opts.symbols = { "function" }
-	end
-	require("telescope.builtin").lsp_document_symbols(opts)
-end
-
 function M.dynamic_workspace_symbols_filtered()
 	local opts = {}
 	opts.file_ignore_patterns = {

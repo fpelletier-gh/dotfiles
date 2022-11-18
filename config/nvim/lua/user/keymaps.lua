@@ -1,7 +1,5 @@
 local opts = { noremap = true, silent = true }
 
-local term_opts = { silent = true }
-
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
 
@@ -99,10 +97,6 @@ function _G.set_terminal_keymaps()
 	vim.keymap.set("t", "<C-o>", [[<C-\><C-n>]], options)
 end
 
---[[ keymap("n", "<leader>tr", ":1TermExec cmd='npm run dev'<CR>", { noremap = true }) ]]
---[[ keymap("n", "<leader>to", ":1ToggleTerm<CR>", { noremap = true }) ]]
---[[ keymap("n", "<leader>tn", ":2ToggleTerm<CR>", { noremap = true }) ]]
-
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
@@ -152,30 +146,10 @@ keymap("n", "<A-l>", ">>", opts)
 keymap("n", "j", "gj", opts)
 keymap("n", "k", "gk", opts)
 
--- Insert --
--- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
 
 -- Visual --
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
-
--- Move text up and down
---[[ keymap("v", "<A-j>", ":m .+1<CR>==", opts) ]]
---[[ keymap("v", "<A-k>", ":m .-2<CR>==", opts) ]]
 keymap("v", "p", '"_dP', opts)
-
--- Visual Block --
--- Move text up and down
---[[ keymap("x", "J", ":move '>+1<CR>gv-gv", opts) ]]
---[[ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts) ]]
---[[ keymap("x", "K", ":move '<-2<CR>gv-gv", opts) ]]
---[[ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts) ]]
-
--- Terminal --
--- Better terminal navigation
--- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
--- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
--- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
--- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)

@@ -48,9 +48,7 @@ return packer.startup(function(use)
 	use("numToStr/Comment.nvim") -- Easily comment stuff
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
-	use("akinsho/bufferline.nvim")
 	use("nvim-lualine/lualine.nvim")
-	use("akinsho/toggleterm.nvim")
 	use("ThePrimeagen/harpoon")
 	use("ThePrimeagen/git-worktree.nvim")
 	use("mbbill/undotree")
@@ -66,6 +64,8 @@ return packer.startup(function(use)
   let g:nvim_markdown_preview_theme = 'github'
   ]])
 	use("mzlogin/vim-markdown-toc")
+
+	use("lewis6991/impatient.nvim")
 
 	-- Colorschemes
 	use("lunarvim/darkplus.nvim")
@@ -92,7 +92,6 @@ return packer.startup(function(use)
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
-	use("cljoly/telescope-repo.nvim")
 	use({
 		"benfowler/telescope-luasnip.nvim",
 	})
