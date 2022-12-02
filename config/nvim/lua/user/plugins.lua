@@ -40,20 +40,19 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-	-- My plugins here
+	-- Core plugins
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
 	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
 	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
-	use("numToStr/Comment.nvim") -- Easily comment stuff
 	use("kyazdani42/nvim-web-devicons")
+
+	-- Utility plugins
+	use("numToStr/Comment.nvim") -- Easily comment stuff
 	use("kyazdani42/nvim-tree.lua")
-	use("nvim-lualine/lualine.nvim")
 	use("ThePrimeagen/harpoon")
-	use("ThePrimeagen/git-worktree.nvim")
-	use("mbbill/undotree")
+	use("lewis6991/impatient.nvim")
 	use("simrat39/symbols-outline.nvim")
-	use("folke/which-key.nvim")
 	use("rcarriga/nvim-notify")
 	use("windwp/nvim-ts-autotag")
 	use("tpope/vim-surround")
@@ -64,8 +63,11 @@ return packer.startup(function(use)
   let g:nvim_markdown_preview_theme = 'github'
   ]])
 	use("mzlogin/vim-markdown-toc")
+	use("mbbill/undotree")
+	use("christoomey/vim-tmux-navigator")
 
-	use("lewis6991/impatient.nvim")
+	-- UI plugins
+	use("nvim-lualine/lualine.nvim")
 
 	-- Colorschemes
 	use("lunarvim/darkplus.nvim")
@@ -110,6 +112,7 @@ return packer.startup(function(use)
 	use("lewis6991/gitsigns.nvim")
 	use("tpope/vim-fugitive")
 	use("sindrets/diffview.nvim")
+	use("ThePrimeagen/git-worktree.nvim")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
