@@ -3,8 +3,6 @@ return {
 		"html",
 		"typescriptreact",
 		"javascriptreact",
-		"javascript",
-		"typescript",
 		"css",
 		"sass",
 		"scss",

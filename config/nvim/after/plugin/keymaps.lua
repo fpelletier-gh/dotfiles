@@ -11,6 +11,7 @@ nnoremap("<leader><leader>", "<cmd>lua require('telescope.builtin').find_files()
 nnoremap("<leader>F", "<cmd>Telescope live_grep<cr>")
 nnoremap("<leader>/", "<Cmd>lua require'telescope.builtin'.current_buffer_fuzzy_find()<CR>")
 nnoremap("<leader>fa", "<cmd>lua require'telescope.builtin'.builtin{}<CR>") --All Builtin
+nnoremap("<leader>fb", "<Cmd>lua require('telescope.builtin').colorscheme()<CR>") --Command history
 nnoremap("<leader>fc", "<cmd>Telescope commands<cr>") --Commands
 nnoremap("<leader>fC", "<Cmd>lua require('telescope.builtin').command_history()<CR>") --Command history
 nnoremap("<leader>fe", "<Cmd>lua require'user.telescope'.find_configs()<CR>") --Find file in config dir
@@ -146,10 +147,9 @@ nnoremap("<leader>ss", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 nnoremap("<leader>u", ":UndotreeToggle<CR>")
 nnoremap("<leader>o", "o<Esc>")
 nnoremap("<leader>O", "O<Esc>")
---[[ keymap("n", "<C-j>", ":cnext<CR>zz", default_opts) ]]
---[[ keymap("n", "<C-k>", ":cprev<CR>zz", default_opts) ]]
 nnoremap("<leader>x", "<cmd>!chmod +x %<CR>")
 nnoremap("<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+inoremap("<C-o>", "<esc>bgUiwea") -- Make last word uppercase insert mode
 
 -- Harpoon
 nnoremap("<leader>aa", ":lua require('harpoon.mark').add_file()<CR>")

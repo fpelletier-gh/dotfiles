@@ -22,6 +22,7 @@ declare -a apt_list=(
 "cat"
 "cmake"
 "curl"
+"fd-find"
 "fzf"
 "gh"
 "grep"
