@@ -23,15 +23,16 @@ nnoremap("<leader>fg", "<cmd>Telescope repo list<cr>") --Git repository
 nnoremap("<leader>fh", ":Telescope harpoon marks<cr>") --Find harpoon marks
 nnoremap("<leader>fH", "<cmd>Telescope help_tags<cr>") --Find Help
 nnoremap("<leader>fi", "<Cmd>lua require'user.telescope'.project_files()<CR>") --Find Help
+nnoremap("<leader>fk", "<cmd>Telescope keymaps<cr>") --Keymaps
 nnoremap("<leader>fl", "<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>") --FZF :Lines (telescope)
+nnoremap("<leader>fM", "<cmd>Telescope man_pages<cr>") --Man Pages
 nnoremap("<leader>fn", "<Cmd>lua require'user.telescope'.find_configs()<CR>") --Nvim config
 nnoremap("<leader>fN", "<Cmd>lua require'user.telescope'.browse_notes()<CR>") --Web dev Notes
-nnoremap("<leader>fM", "<cmd>Telescope man_pages<cr>") --Man Pages
+nnoremap("<leader>fo", "<cmd>Telescope oldfiles<cr>") --Open Recent File
+nnoremap("<leader>fr", "<Cmd>lua require'telescope.builtin'.lsp_references()<CR>") --Git Status (telescope)
+nnoremap("<leader>fR", "<cmd>Telescope registers<cr>") --Registers
 nnoremap("<leader>fs", "<Cmd>lua require'telescope.builtin'.spell_suggest()<CR>") --Spell suggest
 nnoremap("<leader>fS", "<cmd>Telescope luasnip<cr>") --Snippets
-nnoremap("<leader>fR", "<cmd>Telescope oldfiles<cr>") --Open Recent File
-nnoremap("<leader>fr", "<cmd>Telescope registers<cr>") --Registers
-nnoremap("<leader>fk", "<cmd>Telescope keymaps<cr>") --Keymaps
 nnoremap("<leader>fw", "<Cmd>lua require'user.telescope'.dynamic_workspace_symbols_filtered()<CR>") --Filtered dynamic Workspace symbols
 
 -- Git
@@ -112,7 +113,6 @@ nnoremap("ga", "<Plug>(EasyAlign)")
 vnoremap("ga", "<Plug>(EasyAlign)")
 
 -- Telescope grep_string for visual selection
-local default_opts = { noremap = true, silent = true }
 vnoremap("<leader>rr", "y<ESC>:Telescope live_grep default_text=<c-r>0<CR>")
 
 -- Inner-line around-line textobject
@@ -122,6 +122,14 @@ vnoremap("al", ":<c-u>normal! $v0<cr>")
 onoremap("al", ":<c-u>normal! $v0<cr>")
 
 -- Useful maps
+inoremap("<M-l>", "<esc><right>a")
+inoremap("<M-h>", "<esc>i")
+nnoremap("<M-l>", "zL")
+nnoremap("<M-h>", "zH")
+nnoremap("<zl>", "20zl")
+nnoremap("<zh>", "20zh")
+inoremap("<M-j>", "<esc><down>a")
+inoremap("<M-k>", "<esc><up>a")
 nnoremap("<leader>w", "<cmd>w<CR>")
 nnoremap("<leader>q", "<cmd>q<CR>")
 nnoremap("<leader>Q", "<cmd>qa<CR>")
@@ -152,24 +160,13 @@ nnoremap("<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 inoremap("<C-o>", "<esc>bgUiwea") -- Make last word uppercase insert mode
 
 -- Harpoon
-nnoremap("<leader>aa", ":lua require('harpoon.mark').add_file()<CR>")
-nnoremap("<leader>ah", ":lua require('harpoon.ui').toggle_quick_menu()<CR>")
-nnoremap("<leader>aj", ":lua require('harpoon.ui').nav_file(1)<CR>")
-nnoremap("<leader>ak", ":lua require('harpoon.ui').nav_file(2)<CR>")
-nnoremap("<leader>al", ":lua require('harpoon.ui').nav_file(3)<CR>")
-nnoremap("<leader>an", ":lua require('harpoon.ui').nav_file(4)<CR>")
-nnoremap("<leader>am", ":lua require('harpoon.ui').nav_file(5)<CR>")
-nnoremap("<leader>a,", ":lua require('harpoon.ui').nav_file(5)<CR>")
+nnoremap("<leader>a", ":lua require('harpoon.mark').add_file()<CR>")
+nnoremap("<leader>h", ":lua require('harpoon.ui').toggle_quick_menu()<CR>")
 nnoremap("<leader>1", ":lua require('harpoon.ui').nav_file(1)<CR>")
 nnoremap("<leader>2", ":lua require('harpoon.ui').nav_file(2)<CR>")
 nnoremap("<leader>3", ":lua require('harpoon.ui').nav_file(3)<CR>")
 nnoremap("<leader>4", ":lua require('harpoon.ui').nav_file(4)<CR>")
 nnoremap("<leader>5", ":lua require('harpoon.ui').nav_file(5)<CR>")
-
--- Harpoon terminal
-nnoremap("<leader>tr", ":lua require('harpoon.tmux').sendCommand(2)<CR>", default_opts)
-nnoremap("<leader>to", ":lua require('harpoon.tmux').gotoTerminal(2)<CR>")
-nnoremap("<leader>tn", ":lua require('harpoon.tmux').gotoTerminal(3)<CR>")
 
 require("harpoon").setup({
 	enter_on_sendcmd = false,
@@ -195,13 +192,6 @@ xnoremap("au", ':lua require"treesitter-unit".select(true)<CR>')
 onoremap("iu", ':<c-u>lua require"treesitter-unit".select()<CR>')
 onoremap("au", ':<c-u>lua require"treesitter-unit".select(true)<CR>')
 
--- Normal --
--- Better window navigation
---[[ keymap("n", "<C-h>", "<C-w>h", opts) ]]
---[[ keymap("n", "<C-j>", "<C-w>j", opts) ]]
---[[ keymap("n", "<C-k>", "<C-w>k", opts) ]]
---[[ keymap("n", "<C-l>", "<C-w>l", opts) ]]
-
 -- Resize with arrows
 nnoremap("<C-Up>", ":resize -2<CR>")
 nnoremap("<C-Down>", ":resize +2<CR>")
@@ -214,8 +204,8 @@ nnoremap("[t", ":tabprevious<CR>")
 nnoremap("<leader>tt", ":tabnew<cr>")
 
 -- Navigate Gitsigns hunk
-nnoremap("]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'")
-nnoremap("[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'")
+nnoremap("]g", "<cmd>Gitsigns next_hunk<CR>")
+nnoremap("[g", "<cmd>Gitsigns prev_hunk<CR>")
 
 -- execute visual selection in node REPL
 --[[ vim.api.nvim_buf_set_keymap(0, "v", "<leader>no", ":w !node -p<cr>", { noremap = false, silent = true }) ]]
@@ -229,8 +219,8 @@ vnoremap("<leader>lo", 'cconsole.log(<c-r>")<esc>')
 -- Move text
 nnoremap("<A-j>", "<Esc>:m .+1<CR>")
 nnoremap("<A-k>", "<Esc>:m .-2<CR>")
-nnoremap("<A-h>", "<<")
-nnoremap("<A-l>", ">>")
+--[[ nnoremap("<A-h>", "<<") ]]
+--[[ nnoremap("<A-l>", ">>") ]]
 
 nnoremap("j", "gj")
 nnoremap("k", "gk")
