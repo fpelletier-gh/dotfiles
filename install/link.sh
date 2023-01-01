@@ -2,6 +2,9 @@
 
 DOTFILES=$HOME/.dotfiles
 
+# remove default .bashrc file
+rm -rf $HOME/.bashrc
+
 echo -e "\\nCreating symlinks"
 echo "=============================="
 linkables=$( find -H "$DOTFILES" -maxdepth 3 -name '*.symlink' )
