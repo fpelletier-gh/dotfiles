@@ -1,0 +1,14 @@
+{
+  "async named function": {
+    "prefix": "asnf",
+    "body": ["async function ${1:name}(${2:arguments}) {\n\t${0}\n}"]
+  },
+  "export async named function": {
+    "prefix": "eanf",
+    "body": ["export async function ${1:name}(${2:arguments}) {\n\t${0}\n}"]
+  },
+  "arrow function return": {
+    "prefix": "ar",
+    "body": ["(${1:arguments}) => {\n\t$2\n\treturn ${0}\n}"]
+  }
+}
