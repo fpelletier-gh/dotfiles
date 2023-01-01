@@ -70,8 +70,10 @@ echo -e "\\n\\nInstalling python for neovim\\n"
 python3 -m pip install --upgrade pynvim
 
 echo -e "\\n\\nInstalling nodejs with nvm\\n"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | sh &&
-nvm install --lts
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+source ~/.bashrc
+nvm install node
+npm install -g prettier tree-sitter-cli
 
 echo -e "\\n\\nInstalling tmux plugins manager\\n"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
