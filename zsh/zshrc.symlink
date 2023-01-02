@@ -52,10 +52,18 @@ zinit light Aloxaf/fzf-tab
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 
-# EXA
-zinit ice wait lucid from="gh-r" as="program" mv="bin/exa* -> exa"
-zinit light ogham/exa
-zinit ice wait blockf atpull'zinit creinstall -q .'
+# DELTA
+zinit ice lucid wait="0" as="program" from="gh-r" bpick="*amd64.deb" pick="usr/bin/delta"
+zinit light dandavison/delta
+
+# GLOW
+zinit ice lucid wait"0" as"program" from"gh-r" bpick='*linux_amd64.deb' pick"usr/bin/glow"
+zinit light charmbracelet/glow
+
+# ENHANCD
+zinit ice wait="0" lucid
+zinit light b4b4r07/enhancd
+export ENHANCD_FILTER=fzf:fzy:peco
 
 #####################
 # HISTORY           #
