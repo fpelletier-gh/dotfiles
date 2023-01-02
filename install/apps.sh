@@ -7,6 +7,11 @@ echo -e "\\n\\nAdding neovim nightly PPA\\n"
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
 
+echo -e "\\n\\nInstalling Bottom\\n"
+curl -LO https://github.com/ClementTsang/bottom/releases/download/0.7.0/bottom_0.7.0_amd64.deb
+sudo dpkg -i bottom_0.7.0_amd64.deb
+sudo apt update
+
 echo -e "\\n\\nAdding Github cli\\n"
 sudo apt updattype -p curl >/dev/null || sudo apt install curl -y
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
