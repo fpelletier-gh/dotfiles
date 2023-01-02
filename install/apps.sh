@@ -47,6 +47,7 @@ declare -a apt_list=(
 "unzip"
 "vim"
 "wget"
+"wslu"
 "zsh"
 )
 
