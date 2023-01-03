@@ -168,9 +168,12 @@ nnoremap("<leader>3", ":lua require('harpoon.ui').nav_file(3)<CR>")
 nnoremap("<leader>4", ":lua require('harpoon.ui').nav_file(4)<CR>")
 nnoremap("<leader>5", ":lua require('harpoon.ui').nav_file(5)<CR>")
 
-require("harpoon").setup({
-	enter_on_sendcmd = false,
-})
+local status_ok, harpoon = pcall(require, "harpoon")
+if status_ok then
+	harpoon.setup({
+		enter_on_sendcmd = false,
+	})
+end
 
 -- Symbol-outline
 nnoremap("<leader>so", ":SymbolsOutline<CR>")
