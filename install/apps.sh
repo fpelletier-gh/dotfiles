@@ -79,7 +79,7 @@ echo -e "\\n\\nInstalling nodejs with nvm\\n"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 source ~/.bashrc
 nvm install node
-npm install -g prettier tree-sitter-cli
+npm install -g prettier
 
 echo -e "\\n\\nInstalling tmux plugins manager\\n"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
