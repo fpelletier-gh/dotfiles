@@ -7,18 +7,11 @@ echo -e "\\n\\nAdding neovim nightly PPA\\n"
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
 
-echo -e "\\n\\nInstalling Bottom\\n"
-curl -LO https://github.com/ClementTsang/bottom/releases/download/0.7.0/bottom_0.7.0_amd64.deb
-sudo dpkg -i bottom_0.7.0_amd64.deb
-sudo apt update
-
 echo -e "\\n\\nAdding Github cli\\n"
-sudo apt updattype -p curl >/dev/null || sudo apt install curl -y
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-&& sudo apt install gh -ye
-gh auth login
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
 
 echo -e "\\n\\nInstalling application\\n"
 
@@ -29,8 +22,10 @@ declare -a apt_list=(
 "cat"
 "cmake"
 "curl"
+"exa"
 "fd-find"
 "fzf"
+"gh"
 "grep"
 "highlight"
 "htop"
@@ -61,6 +56,9 @@ echo -e "\\n\\nInstalling Z\\n"
 git clone https://github.com/rupa/z.git ~/z
 touch ~/.z
 
+echo -e "\\n\\nAuthenticating to github\\n"
+gh auth login
+
 echo -e "\\n\\nInstalling Docker engine\\n"
 # https://docs.docker.com/engine/install/ubuntu/
 sudo apt install -y ca-certificates curl gnupg lsb-release
@@ -71,6 +69,7 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update -y
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo service docker start
 sudo docker run hello-world
 
 echo -e "\\n\\nInstalling python for neovim\\n"
