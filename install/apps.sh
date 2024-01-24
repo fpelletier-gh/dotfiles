@@ -22,7 +22,6 @@ declare -a apt_list=(
 "cat"
 "cmake"
 "curl"
-"exa"
 "fd-find"
 "fzf"
 "gh"
