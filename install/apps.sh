@@ -36,7 +36,6 @@ declare -a apt_list=(
 "python3-venv"
 "ripgrep"
 "silversearcher-ag"
-"tabnine"
 "tmux"
 "unzip"
 "vim"
