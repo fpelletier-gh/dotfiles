@@ -36,7 +36,7 @@ nnoremap("<leader>fS", "<cmd>Telescope luasnip<cr>") --Snippets
 nnoremap("<leader>fw", "<Cmd>lua require'user.telescope'.dynamic_workspace_symbols_filtered()<CR>") --Filtered dynamic Workspace symbols
 
 -- Git
-nnoremap("<leader>gg", "<Cmd>lua require'telescope.builtin'.git_status()<CR>") --Git Status (telescope)
+nnoremap("<leader>gS", "<Cmd>lua require'telescope.builtin'.git_status()<CR>") --Git Status (telescope)
 nnoremap("<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>") --Next Hunk
 nnoremap("<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>") --Prev Hunk
 nnoremap("<leader>gl", "<Cmd>lua require'telescope.builtin'.git_commits()<CR>") --Log commits (telescope)
@@ -44,6 +44,7 @@ nnoremap("<leader>gB", "<cmd>lua require 'gitsigns'.blame_line()<cr>") --Blame
 nnoremap("<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>") --Preview Hunk
 nnoremap("<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>") --Reset Hunk
 nnoremap("<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>") --Reset Buffer
+nnoremap("<leader>gg", ":tabnew | G | only<cr>") --Git Status (telescope)
 nnoremap("<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>") --Stage Hunk
 nnoremap("<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>") --Undo Stage Hunk
 nnoremap("<leader>go", "<Cmd>lua require'telescope.builtin'.git_status()<CR>") --Open changed file
@@ -101,6 +102,7 @@ nnoremap("<leader>e", "<cmd>NvimTreeToggle<cr>")
 nnoremap("<leader>cc", ":cclose | lclose<CR>")
 nnoremap("<leader>co", ":copen<CR>")
 nnoremap("<leader>cl", ":lopen<CR>")
+nnoremap("<leader>cp", ":Copilot panel<CR>")
 
 -- line completion - use more!
 inoremap("<c-l>", "<c-x><c-l>")
@@ -126,11 +128,11 @@ inoremap("<M-l>", "<esc><right>a")
 inoremap("<M-h>", "<esc>i")
 nnoremap("<M-l>", "zL")
 nnoremap("<M-h>", "zH")
-nnoremap("<zl>", "20zl")
-nnoremap("<zh>", "20zh")
+nnoremap("zl", "20zl")
+nnoremap("zh", "20zh")
 inoremap("<M-j>", "<esc><down>a")
 inoremap("<M-k>", "<esc><up>a")
-nnoremap("<leader>w", "<cmd>w<CR>")
+nnoremap("<leader>s", "<cmd>w<CR>")
 nnoremap("<leader>q", "<cmd>q<CR>")
 nnoremap("<leader>Q", "<cmd>qa<CR>")
 nnoremap("<leader>z", "<cmd>tab split<CR>")
@@ -151,7 +153,7 @@ nnoremap("]w", "<cmd>lnext<CR>zz")
 nnoremap("[w", "<cmd>lprev<CR>zz")
 nnoremap("]b", "<cmd>bnext<CR>zz")
 nnoremap("[b", "<cmd>bprev<CR>zz")
-nnoremap("<leader>ss", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+nnoremap("<leader>S", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 nnoremap("<leader>u", ":UndotreeToggle<CR>")
 nnoremap("<leader>o", "o<Esc>")
 nnoremap("<leader>O", "O<Esc>")
