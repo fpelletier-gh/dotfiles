@@ -112,6 +112,49 @@ return packer.startup(function(use)
 	use("tpope/vim-fugitive")
 	use("sindrets/diffview.nvim")
 	use("ThePrimeagen/git-worktree.nvim")
+  use({
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        panel = {
+          enabled = true,
+          auto_refresh = true,
+          keymap = {
+            jump_prev = "[[",
+            jump_next = "]]",
+            accept = "<CR>",
+            refresh = "gr",
+            open = "<C-CR>",
+          },
+          layout = {
+            position = "right", -- | top | left | right
+            ratio = 0.4,
+          },
+        },
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<tab>",
+            accept_word = false,
+            accept_line = false,
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
+          },
+        },
+        filetypes = {
+          yaml = true,
+          markdown = true,
+          help = false,
+          gitcommit = true,
+          gitrebase = true,
+          hgcommit = true,
+        },
+      })
+    end,
+  })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
