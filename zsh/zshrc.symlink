@@ -66,6 +66,15 @@ zinit ice wait="0" lucid
 zinit light b4b4r07/enhancd
 export ENHANCD_FILTER=fzf:fzy:peco
 
+# CROC
+zinit ice lucid wait="0" as="program" from="gh-r" bpick="*64bit*"
+zinit light schollz/croc
+
+# EXA
+zinit ice wait="0" lucid from="gh-r" as="program" mv="bin/exa* -> exa"
+zinit light ogham/exa
+zinit ice wait blockf atpull'zinit creinstall -q .'
+
 #####################
 # HISTORY           #
 #####################
@@ -104,14 +113,14 @@ export PAGER='less'
 export SHELL='/bin/zsh'
 export BAT_THEME="gruvbox-dark"
 # export TERM='screen-256color'
-if [[ ! $(tmux ls) ]] 2> /dev/null; then 
-  tmux new -s λ
-fi
+# if [[ ! $(tmux ls) ]] 2> /dev/null; then 
+#   tmux new -s λ
+# fi
 
 #####################
 # COLORING          #
 #####################
-autoload colors && colors
+# autoload colors && colors
 
 # BAT
 zinit ice from="gh-r" as="program" pick="usr/bin/bat" bpick="*amd64.deb" atload="alias cat=bat"
